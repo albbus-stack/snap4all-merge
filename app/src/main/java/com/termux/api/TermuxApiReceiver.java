@@ -90,6 +90,18 @@ public class TermuxApiReceiver extends BroadcastReceiver {
             case "BatteryStatus":
                 BatteryStatusAPI.onReceive(this, context, intent);
                 break;
+            // START TERMUX MERGE
+            case "BluetoothScanInfo":
+                if (TermuxApiPermissionActivity.checkAndRequestPermissions(context, intent, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    BluetoothAPI.onReceiveBluetoothScanInfo(this, context, intent);
+                }
+                break;
+            case "BluetoothConnect":
+                if (TermuxApiPermissionActivity.checkAndRequestPermissions(context, intent, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    BluetoothAPI.onReceiveBluetoothConnect(this, context, intent);
+                }
+                break;
+            // END TERMUX MERGE
             case "Brightness":
                 if (!Settings.System.canWrite(context)) {
                     TermuxApiPermissionActivity.checkAndRequestPermissions(context, intent, Manifest.permission.WRITE_SETTINGS);

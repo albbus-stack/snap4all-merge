@@ -140,6 +140,26 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
 
         if (!prefs.getBoolean("firstTime", false)) {
             // <---- run your one time code here
+
+            // We have to install a patched termux-api-package version including two new scripts for the bluetooth feature
+
+            // Will create a repo for the patched termux-api-package in which every occurrence of .TermuxApiReceiver will be replaced with .api.TermuxApiReceiver; here is the shell script to install this package (this has to run the first time)
+
+            // apt install git make clang -y
+            // git clone https://github.com/albbus-stack/snap4all-termux-api-package
+            // cd snap4all-termux-api-package
+            // make
+            // make install
+            
+            try {
+                Runtime rt = Runtime.getRuntime();
+                rt.exec("apt install git make clang -y");
+                rt.exec("git clone https://github.com/albbus-stack/snap4all-termux-api-package && cd snap4all-termux-api-package");
+                rt.exec("make && make install");
+            }catch (Exception e) {
+                Log.d("snap4all-termux-api-package installation error: ",""+e.getMessage());
+            }
+
             // If the parent dir doesn't exist, create it
             File folder = new File(HOME_PATH+"/.termux/boot/");
             Log.d("termux2",HOME_PATH+"/.termux/boot/");
@@ -182,10 +202,10 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 fos.write(string.getBytes());
                 fos.close();
 
-                //Runtime.getRuntime().exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
-                //Runtime.getRuntime().exec("sh " + HOME_PATH + "/.termux/boot/start");
-            
-            }catch(Exception e){
+                //rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
+                //rt.exec("sh " + HOME_PATH + "/.termux/boot/start");
+
+            }catch (Exception e) {
                 Log.d("termux2",""+e.getMessage());
             }
             // mark first time has runned.
@@ -193,7 +213,6 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             editor.putBoolean("firstTime", true);
             editor.commit();
         }
-
         // END TERMUX MERGE
     }
 

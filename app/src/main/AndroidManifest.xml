@@ -219,25 +219,28 @@
             </intent-filter>
         </service>
 
-        <!-- INIZIO PARTE DEL MANIFEST DI TERMUX-BOOT -->
-        <activity android:name=".boot.BootActivity">
+        <!-- TERMUX-BOOT MANIFEST MERGE START -->
+
+        <!-- <activity android:name=".boot.BootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> -->
+
         <receiver android:name=".boot.BootReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service android:name=".boot.BootJobService" android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <!-- FINE PARTE DEL MANIFEST DI TERMUX-BOOT -->
+        <!-- TERMUX-BOOT MANIFEST MERGE END -->
 
-        <!-- INIZIO PARTE DEL MANIFEST DI TERMUX-API -->
+        <!-- TERMUX-API MANIFEST MERGE START -->
 
-        <activity
+        <!-- <activity
             android:name=".api.activities.TermuxAPIActivity"
             android:theme="@style/Theme.BaseActivity.DayNight.NoActionBar"
             android:exported="true">
@@ -245,7 +248,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> -->
 
         <activity android:name=".api.activities.TermuxApiPermissionActivity"
             android:theme="@android:style/Theme.NoDisplay"
@@ -360,26 +363,7 @@
         <service android:name=".api.apis.WallpaperAPI$WallpaperService"
             android:exported="false" />
 
-        <!-- <receiver android:name=".api.TermuxApiReceiver" />
-        <activity android:name=".api.DialogActivity" android:theme="@style/DialogTheme" android:noHistory="true" android:excludeFromRecents="true" android:exported="false" />
-        <activity android:name=".api.FingerprintAPI$FingerprintActivity" android:theme="@style/TransparentTheme" android:noHistory="true" android:excludeFromRecents="true" android:exported="false" />
-        <activity android:name=".api.util.TermuxApiPermissionActivity" android:theme="@android:style/Theme.NoDisplay" android:noHistory="true" android:excludeFromRecents="true" android:exported="false" />
-        <activity android:name=".api.StorageGetAPI$StorageActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:excludeFromRecents="true" android:exported="false" />
-        <service android:name=".api.SpeechToTextAPI$SpeechToTextService" />
-        <service android:name=".api.TextToSpeechAPI$TextToSpeechService" />
-        <service android:name=".api.SensorAPI$SensorReaderService" />
-        <provider android:authorities=".sharedfiles" android:readPermission=".sharedfiles.READ" android:exported="true" android:grantUriPermissions="true" android:name=".api.ShareAPI$ContentProvider" />
-        <service android:name=".api.MediaPlayerAPI$PlayerService" android:exported="false" />
-        <service android:name=".api.MicRecorderAPI$MicRecorderService" android:exported="false" />
-        <service android:name=".api.WallpaperAPI$WallpaperService" />
-        <service android:name=".api.NotificationService" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" android:enabled="true" android:exported="true">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
-        <service android:name=".api.SchedulerJobService" android:permission="android.permission.BIND_JOB_SERVICE" /> -->
-
-        <!-- FINE PARTE DEL MANIFEST DI TERMUX-API -->
+        <!-- TERMUX-API MANIFEST MERGE END -->
 
         <activity android:name=".InfoActivity" android:label="@string/title_activity_info"></activity>
     </application>
