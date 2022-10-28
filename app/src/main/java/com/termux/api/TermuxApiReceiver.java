@@ -141,6 +141,11 @@ public class TermuxApiReceiver extends BroadcastReceiver {
             case "Download":
                 DownloadAPI.onReceive(this, context, intent);
                 break;
+            // START TERMUX MERGE
+            case "EnableButtons":
+                EnableButtons.onReceive(this, context, intent);
+            break;
+            // END TERMUX MERGE
             case "Fingerprint":
                 FingerprintAPI.onReceive(context, intent);
                 break;

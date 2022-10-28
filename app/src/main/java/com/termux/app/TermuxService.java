@@ -134,52 +134,40 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
         SystemEventReceiver.registerPackageUpdateEvents(this);
 
         // START TERMUX MERGE
-        // code to make the file ~/.termux/boot/start
+        // Creates the ~/.termux/boot/start script the first time the service is started after a fresh install.
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (!prefs.getBoolean("firstTime", false)) {
-            // <---- run your one time code here
-
-            // We have to install a patched termux-api-package version including two new scripts for the bluetooth feature
-
-            // Will create a repo for the patched termux-api-package in which every occurrence of .TermuxApiReceiver will be replaced with .api.TermuxApiReceiver; here is the shell script to install this package (this has to run the first time)
-
-            // apt install git make clang -y
-            // git clone https://github.com/albbus-stack/snap4all-termux-api-package
-            // cd snap4all-termux-api-package
-            // make
-            // make install
+            // Run your one time code here
             
-            try {
-                Runtime rt = Runtime.getRuntime();
-                rt.exec("apt install git make clang -y");
-                rt.exec("git clone https://github.com/albbus-stack/snap4all-termux-api-package && cd snap4all-termux-api-package");
-                rt.exec("make && make install");
-            }catch (Exception e) {
-                Log.d("snap4all-termux-api-package installation error: ",""+e.getMessage());
-            }
-
             // If the parent dir doesn't exist, create it
             File folder = new File(HOME_PATH+"/.termux/boot/");
-            Log.d("termux2",HOME_PATH+"/.termux/boot/");
+            Log.d(".termux/boot",HOME_PATH+"/.termux/boot/");
+
             if(!folder.exists()){
                 boolean result = folder.mkdirs();
-                Log.d("termux2", "creating file on /data/data/com.termux/files/home/.termux/boot/"+ " returned: "+result);
+                Log.d(".termux/boot", "Creation of .termux/boot folder returned:\n"+ result);
             }
 
             String string = "#!/data/data/com.termux/files/usr/bin/sh\n" +
+                "pkg install git make cmake clang -y\n"+
+                "chmod +x /data/data/com.termux/files/usr/bin/npm\n"+
+                "git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
+                "cd snap4all-termux-api-package\n"+
+                "cmake CMakeLists.txt\n"+
+                "make\n"+
+                "make install\n"+
+                "cd ..\n"+
                 "termux-wake-lock\n"+
-                //"pkg install termux-api -y\n"+
                 "termux-toast \"Installing kek\"\n"+
                 "touch " + HOME_PATH + "/rebooted\n"+
                 "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating repository\" && termux-vibrate )\n"+
-                "pkg install nodejs openssh git -y\n"+
-                "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating repository\" && termux-vibrate )\n"+
-                "[ -f $PREFIX/bin/node-red ] || apt update\n"+
-                "[ -f $PREFIX/bin/node-red ] || apt upgrade -y\n"+
+                "pkg install nodejs openssh -y\n"+
+                "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating zrepository\" && termux-vibrate )\n"+
+                "[ -f $PREFIX/bin/node-red ] || pkg upgrade -y\n"+
                 "[ -f $PREFIX/bin/node ] || ( termux-toast \"Installing packages\" && termux-vibrate )\n"+
-                "[ -f $PREFIX/bin/node ] || apt -y install coreutils nano nodejs openssh git\n"+
+                "[ -f $PREFIX/bin/node ] || pkg -y install coreutils nano nodejs openssh git\n"+
                 "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Installing node-red\" && termux-vibrate )\n"+
                 "[ -f $PREFIX/bin/node-red ] || npm i -g --unsafe-perm node-red\n" +
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api ] || cd $PREFIX/lib/node_modules/node-red/\n"+
@@ -202,13 +190,15 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 fos.write(string.getBytes());
                 fos.close();
 
-                //rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
+                Runtime rt = Runtime.getRuntime();
+                rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
                 //rt.exec("sh " + HOME_PATH + "/.termux/boot/start");
 
             }catch (Exception e) {
-                Log.d("termux2",""+e.getMessage());
+                Log.d(".termux/boot/start","Creation of .termux/boot/start returned:\n"+e.getMessage());
             }
-            // mark first time has runned.
+
+            // Update state in shared preferences
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.commit();

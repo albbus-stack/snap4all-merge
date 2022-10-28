@@ -146,7 +146,6 @@ public class BluetoothAPI {
                 try {
                     JsonWriter writer = new JsonWriter(out);
                     writer.setIndent("  ");
-                    Log.d("***ciao3", "boh"+inputString);
 
                     if(inputString.equals("")) {
 
@@ -155,7 +154,7 @@ public class BluetoothAPI {
                     	writer.beginObject().name("message:").value("BluetoothConnect da implementare, dovrebbe connettersi a " + inputString).endObject();
                     out.println(); // To add trailing newline.
                 }catch(Exception e){
-                    Log.d("termux", "errorreeeeee bluetooth connect");
+                    Log.d("termux-api-java", "Bluetooth connect failed with:\n"+e.getMessage());
 
                 }
             }

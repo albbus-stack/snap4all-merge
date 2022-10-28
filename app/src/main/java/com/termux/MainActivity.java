@@ -46,43 +46,37 @@ public class MainActivity extends Activity {
         MainActivity.enableNodeRed = true;
 
         if (btnNodeRed != null && !btnNodeRed.isEnabled()) {
-            Log.d("termux", "entered in If because btnNode.enable is false and MainActivity isnt null");
             try {
                 Log.d("termux", "setting Node-red.enable to tre");
                 btnNodeRed.setEnabled(true);
                 Log.d("termux", "setting Node-red.enable to tre2");
-
             } catch (Exception e) {
                 Log.d("termux", "exception from enable btn-red:" + e.getMessage());
             }
+
             try {
                 Log.d("termux", "refreshing  Node-red");
                 btnNodeRed.refreshDrawableState();
-
                 Log.d("termux", "refreshing  Node-red2");
             } catch (Exception e) {
                 Log.d("termux", "exception from enable btn-red:" + e.getMessage());
             }
-
         }
-        if (btnDashBoard != null && !btnDashBoard.isEnabled()) {
-            Log.d("termux", "entered in If because btnNode.enable is false and MainActivity isnt null");
 
+        if (btnDashBoard != null && !btnDashBoard.isEnabled()) {
             try {
                 Log.d("termux", "setting Node-red.enable to tre");
                 btnDashBoard.setEnabled(true);
-
             } catch (Exception e) {
                 Log.d("termux", "exception from enable btn-dasboard:" + e.getMessage());
             }
+
             try {
                 Log.d("termux", "refreshing  Node-dashobard");
-
                 MainActivity.btnDashBoard.refreshDrawableState();
             } catch (Exception e) {
                 Log.d("termux", "exception from enable btn-dashboard:" + e.getMessage());
             }
-
         }
         Log.d("termux", "end of method enable buttons");
         //    if(!btnConsole.isEnabled())btnConsole.setEnabled(true);

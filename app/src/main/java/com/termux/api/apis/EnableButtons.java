@@ -20,25 +20,23 @@ public class EnableButtons {
             @Override
             public void writeJson(final JsonWriter out) throws Exception {
                 try{
-                    Log.d("termux", "***********setting enableNodeRed to true");
 
+                    Log.d("termux-api-java", "Setting enableNodeRed to true");
                     MainActivity.enableNodeRed=true;
+
                 if(MainActivity.activity!=null) {
-                    Log.d("termux", "calling enableButtons()");
 
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            Log.d("termux-api-java", "Calling enableButtons");
                             MainActivity.activity.enableButtons();
-
-                            Log.d("termux", "***********end enabling buttons");
-
                         }
                     });
+
                 }
                 }catch(Exception e){
-
-                    Log.d("termux,","exception "+e.getMessage());
+                    Log.d("termux-api-java","EnableButtons failed with:\n"+e.getMessage());
             }}
         });
     }

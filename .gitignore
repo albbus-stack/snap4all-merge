@@ -9,7 +9,7 @@ release/
 *.so
 .externalNativeBuild
 .cxx
-*.zip
+.log
 
 # Local configuration file (sdk path, etc)
 local.properties
