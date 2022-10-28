@@ -1,53 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:gravity="center_horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/text_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Welcome to Snap4all"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:background="#ffff"
+        android:clipToPadding="true"
         android:fillViewport="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp">
+                android:layout_height="92dp"
+                android:background="#006A1500"
+                android:fitsSystemWindows="false"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="175dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:src="@drawable/snap4all_banner" />
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif-monospace"
+                    android:gravity="center_horizontal"
+                    android:text="Snap4All"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="#6A1500"
+                    android:textSize="37sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginBottom="60dp"
+                android:background="#6A1500"
+                android:fitsSystemWindows="false"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_description"
+                    android:layout_width="331dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif-monospace"
+                    android:gravity="center_horizontal"
+                    android:text="A tool that configures a node red installation with the Snap4City suite."
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@android:color/white"
+                    android:textSize="21sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -60,28 +73,36 @@
 
                 <Button
                     android:id="@+id/btn_node_red"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_weight="1"
+                    android:background="#6A1500"
                     android:drawableTop="@mipmap/nodered"
                     android:drawablePadding="5dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
-
                     android:paddingTop="40dp"
-                    android:text="IOT APP Editor" />
+                    android:text="IOT APP EDITOR"
+                    android:textColor="#ffff"
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btn_dashboard"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:background="#6A1500"
                     android:drawableTop="@mipmap/nodered_dashboard"
                     android:drawablePadding="5dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
-
                     android:paddingTop="40dp"
-                    android:text="Dashboard" />
+                    android:text="DASHBOARD"
+                    android:textColor="#ffff"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,27 +115,41 @@
 
                 <Button
                     android:id="@+id/btn_console"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_weight="1"
+                    android:background="#6A1500"
                     android:drawableTop="@mipmap/termux"
                     android:drawablePadding="5dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
                     android:paddingTop="40dp"
-                    android:text="Termux Console" />
+                    android:text="CONSOLE"
+                    android:textColor="#ffff"
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btn_info"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:background="#6A1500"
+                    android:backgroundTint="@null"
+                    android:backgroundTintMode="add"
                     android:drawableTop="@mipmap/info"
                     android:drawablePadding="5dp"
+                    android:drawableTint="#ffff"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
                     android:paddingTop="40dp"
-                    android:text="Information" />
+                    android:text="INFO"
+                    android:textColor="#ffff"
+                    android:textSize="14sp" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

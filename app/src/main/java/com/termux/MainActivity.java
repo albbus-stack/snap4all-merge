@@ -139,15 +139,12 @@ public class MainActivity extends Activity {
         btnDashBoard.setEnabled(false);
         btnConsole = (Button) findViewById(R.id.btn_console);
         btnConsole.setEnabled(false);
-        text_welcome = (TextView) findViewById(R.id.text_welcome);
-        text_welcome.setPadding(0, getStatusBarHeight(), 0, 0);
 
         btnConsole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ActualActivity = 2;
                 moveToConsole();
-
             }
         });
 
