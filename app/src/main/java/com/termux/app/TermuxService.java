@@ -152,22 +152,23 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
 
             String string = "#!/data/data/com.termux/files/usr/bin/sh\n" +
                 "pkg install git make cmake clang -y\n"+
+                // Npm executable setup for termux
                 "chmod +x /data/data/com.termux/files/usr/bin/npm\n"+
+                // Installs a custom termux-api package
                 "git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
                 "cd snap4all-termux-api-package\n"+
                 "cmake CMakeLists.txt\n"+
                 "make\n"+
                 "make install\n"+
                 "cd ..\n"+
+                // Checks that all the necessary apt packages are installed
                 "termux-wake-lock\n"+
-                "termux-toast \"Installing kek\"\n"+
                 "touch " + HOME_PATH + "/rebooted\n"+
                 "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating repository\" && termux-vibrate )\n"+
-                "pkg install nodejs openssh -y\n"+
-                "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating zrepository\" && termux-vibrate )\n"+
                 "[ -f $PREFIX/bin/node-red ] || pkg upgrade -y\n"+
                 "[ -f $PREFIX/bin/node ] || ( termux-toast \"Installing packages\" && termux-vibrate )\n"+
                 "[ -f $PREFIX/bin/node ] || pkg -y install coreutils nano nodejs openssh git\n"+
+                // Installs node-red and its submodules
                 "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Installing node-red\" && termux-vibrate )\n"+
                 "[ -f $PREFIX/bin/node-red ] || npm i -g --unsafe-perm node-red\n" +
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api ] || cd $PREFIX/lib/node_modules/node-red/\n"+
@@ -176,10 +177,11 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard ] || ( termux-toast \"Installing node-red-dashboard\" && termux-vibrate ) \n"+
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard ] || npm install node-red-dashboard\n"+
-
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && termux-vibrate ) \n"+
                 "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user ] || npm install git+https://github.com/disit/node-red-contrib-snap4city-user.git\n"+
+                //"npm audit fix --force\n"+
+                // Enables the buttons on the main page and starts the node-red server
                 "termux-enable-buttons\n"+
                 "termux-toast \"starting node-red\" \n"+
                 "node $PREFIX/bin/node-red\n"

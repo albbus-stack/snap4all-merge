@@ -79,7 +79,7 @@
              mark the app with "This app is optimized to run in full screen." -->
         <meta-data android:name="android.max_aspect" android:value="10.0" />
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".app.TermuxActivity"
             android:label="@string/application_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
             <intent-filter>
