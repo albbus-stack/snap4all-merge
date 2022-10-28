@@ -150,41 +150,50 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 Log.d(".termux/boot", "Creation of .termux/boot folder returned:\n"+ result);
             }
 
+            String apiPackagePath = "/data/data/com.termux/files/home/snap4all-termux-api-package";
+            String nodeRedPath = "$PREFIX/bin/node-red";
+            String nodePath = "$PREFIX/bin/node";
+            String nodeRedTermuxApiPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api";
+            String nodeRedDashboardPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard";
+            String snap4CityPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user";
+
+            String vibration = "termux-vibrate -f -d 50";
+
             String string = "#!/data/data/com.termux/files/usr/bin/sh\n" +
                 "termux-wake-lock\n"+
-                "pkg install git make cmake clang -y\n"+
                 // Npm executable setup for termux
                 "chmod +x /data/data/com.termux/files/usr/bin/npm\n"+
                 // Installs a custom termux-api package
-                "git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
-                "cd snap4all-termux-api-package\n"+
-                "cmake CMakeLists.txt\n"+
-                "make\n"+
-                "make install\n"+
-                "cd ..\n"+
+                "[ -d "+apiPackagePath+" ] || pkg install git make cmake clang -y\n"+
+                "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
+                "[ -d "+apiPackagePath+" ] || cd snap4all-termux-api-package\n"+
+                "[ -d "+apiPackagePath+" ] || cmake CMakeLists.txt\n"+
+                "[ -d "+apiPackagePath+" ] || make\n"+
+                "[ -d "+apiPackagePath+" ] || make install\n"+
+                "[ -d "+apiPackagePath+" ] || cd ..\n"+
                 // Checks that all the necessary apt packages are installed
                 "touch " + HOME_PATH + "/rebooted\n"+
-                "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating repository\" && termux-vibrate )\n"+
-                "[ -f $PREFIX/bin/node-red ] || pkg upgrade -y\n"+
-                "[ -f $PREFIX/bin/node ] || ( termux-toast \"Installing packages\" && termux-vibrate )\n"+
-                "[ -f $PREFIX/bin/node ] || pkg -y install coreutils nano nodejs openssh git\n"+
+                "[ -f "+nodeRedPath+" ] || ( termux-toast \"Updating repository\" && "+vibration+" )\n"+
+                "[ -f "+nodeRedPath+" ] || pkg upgrade -y\n"+
+                "[ -f "+nodePath+" ] || ( termux-toast \"Installing packages\" && "+vibration+" )\n"+
+                "[ -f "+nodePath+" ] || pkg -y install coreutils nano nodejs openssh\n"+
                 // Installs node-red and its submodules
-                "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Installing node-red\" && termux-vibrate )\n"+
-                "[ -f $PREFIX/bin/node-red ] || npm i -g --unsafe-perm node-red\n" +
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api ] || cd $PREFIX/lib/node_modules/node-red/\n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api ] || ( termux-toast \"Installing termux-api nodes\" && termux-vibrate ) \n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api ] || npm install node-red-contrib-termux-api\n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard ] || cd $PREFIX/lib/node_modules/node-red/\n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard ] || ( termux-toast \"Installing node-red-dashboard\" && termux-vibrate ) \n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard ] || npm install node-red-dashboard\n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user ] || cd $PREFIX/lib/node_modules/node-red/\n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && termux-vibrate ) \n"+
-                "[ -d $PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user ] || npm install git+https://github.com/disit/node-red-contrib-snap4city-user.git\n"+
+                "[ -f "+nodeRedPath+" ] || ( termux-toast \"Installing node-red\" && "+vibration+" )\n"+
+                "[ -f "+nodeRedPath+" ] || npm i -g --unsafe-perm node-red\n" +
+                "[ -d "+nodeRedTermuxApiPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
+                "[ -d "+nodeRedTermuxApiPath+" ] || ( termux-toast \"Installing termux-api nodes\" && "+vibration+" ) \n"+
+                "[ -d "+nodeRedTermuxApiPath+" ] || npm install node-red-contrib-termux-api\n"+
+                "[ -d "+nodeRedDashboardPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
+                "[ -d "+nodeRedDashboardPath+" ] || ( termux-toast \"Installing node-red-dashboard\" && "+vibration+" ) \n"+
+                "[ -d "+nodeRedDashboardPath+" ] || npm install node-red-dashboard\n"+
+                "[ -d "+snap4CityPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
+                "[ -d "+snap4CityPath+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && "+vibration+" ) \n"+
+                "[ -d "+snap4CityPath+" ] || npm install git+https://github.com/disit/node-red-contrib-snap4city-user.git\n"+
                 //"npm audit fix --force\n"+
-                // Enables the buttons on the main page and starts the node-red server
+                // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers.
                 "termux-enable-buttons\n"+
                 "termux-toast \"starting node-red\" \n"+
-                "node $PREFIX/bin/node-red\n"
+                "node "+nodeRedPath+"\n"
                 ;
 
             try {

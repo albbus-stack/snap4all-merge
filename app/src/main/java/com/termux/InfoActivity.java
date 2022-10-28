@@ -14,8 +14,9 @@ public class InfoActivity extends Activity {
 
         WebView webView = (WebView) findViewById(R.id.infoView);
         webView.loadUrl("file:///android_asset/info.html");
-        RelativeLayout.LayoutParams lyt = (RelativeLayout.LayoutParams) webView.getLayoutParams();
-        lyt.topMargin = getStatusBarHeight();
+        
+        //RelativeLayout.LayoutParams lyt = (RelativeLayout.LayoutParams) webView.getLayoutParams();
+        //lyt.topMargin = getStatusBarHeight();
     }
     public int getStatusBarHeight() {
         int result = 0;

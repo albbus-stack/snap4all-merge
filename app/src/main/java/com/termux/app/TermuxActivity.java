@@ -225,9 +225,11 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         setContentView(R.layout.activity_termux);
 
         //START TERMUX MERGE
+
 		MainOptions = new Intent(this, MainActivity.class);
         startActivity(MainOptions);
         first_activity_options=true;
+
 		//END TERMUX MERGE
 
         // Load termux shared preferences
@@ -413,7 +415,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             if (mIsVisible) {
                 TermuxInstaller.setupBootstrapIfNeeded(TermuxActivity.this, () -> {
                     // START TERMUX MERGE
+
  					MainActivity.activity.btnConsole.setEnabled(true);
+
 					// END TERMUX MERGE
                     if (mTermuxService == null) return; // Activity might have been destroyed.
                     try {
@@ -423,7 +427,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                         }
                         mTermuxTerminalSessionActivityClient.addNewSession(launchFailsafe, null);
                         // START TERMUX MERGE
+
 						installed = true;
+
 						// END TERMUX MERGE
                     } catch (WindowManager.BadTokenException e) {
                         // Activity finished - ignore.
@@ -433,13 +439,16 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                 // The service connected while not in foreground - just bail out.
                 finishActivityIfNotFinishing();
             }
-        } else {
+        } else {       
+            // START TERMUX MERGE
+
+			MainActivity.activity.btnConsole.setEnabled(true);
+
+			// END TERMUX MERGE
+            
             // If termux was started from launcher "New session" shortcut and activity is recreated,
             // then the original intent will be re-delivered, resulting in a new session being re-added
             // each time.
-            // START TERMUX MERGE
-			MainActivity.activity.btnConsole.setEnabled(true);
-			// END TERMUX MERGE
             if (!mIsActivityRecreated && intent != null && Intent.ACTION_RUN.equals(intent.getAction())) {
                 // Android 7.1 app shortcut from res/xml/shortcuts.xml.
                 boolean isFailSafe = intent.getBooleanExtra(TERMUX_ACTIVITY.EXTRA_FAILSAFE_SESSION, false);
@@ -631,9 +640,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         } else {
             finish();
         }*/
-		MainActivity.ActualActivity=1;
+
+		MainActivity.ActualActivity="MainActivity";
         startActivity(MainOptions);
-       // MainActivity.activity.btnConsole.setEnabled(true);
+
 		//END TERMUX MERGE
     }
 

@@ -119,8 +119,10 @@ final class TermuxInstaller {
         }
 
         // START TERMUX MERGE
-  			//final ProgressDialog progress = ProgressDialog.show(activity, null, activity.getString(R.string.bootstrap_installer_body), true, false);
-			  final ProgressDialog progress = ProgressDialog.show(mainOptions, null, mainOptions.getString(R.string.bootstrap_installer_body), true, false);			
+  		//final ProgressDialog progress = ProgressDialog.show(activity, null, activity.getString(R.string.bootstrap_installer_body), true, false);
+
+		final ProgressDialog progress = ProgressDialog.show(mainOptions, null, mainOptions.getString(R.string.bootstrap_installer_body), true, false);	
+
 		// END TERMUX MERGE
         new Thread() {
             @Override
@@ -163,13 +165,15 @@ final class TermuxInstaller {
                     final byte[] buffer = new byte[8096];
                     final List<Pair<String, String>> symlinks = new ArrayList<>(50);
 
-                    // START TERMUX MERGE
+                    // START TERMUX 
+
+                    //final URL zipUrl = determineZipUrl();
                     final byte[] zipBytes = loadZipBytes();
-					//final URL zipUrl = determineZipUrl();
 					
-                    try (ZipInputStream zipInput = new ZipInputStream(new ByteArrayInputStream(zipBytes))) {
  					//try (ZipInputStream zipInput = new ZipInputStream(zipUrl.openStream())) {
-					// END TERMUX MERGE
+                    try (ZipInputStream zipInput = new ZipInputStream(new ByteArrayInputStream(zipBytes))) {
+
+					    // END TERMUX MERGE
                         ZipEntry zipEntry;
                         while ((zipEntry = zipInput.getNextEntry()) != null) {
                             if (zipEntry.getName().equals("SYMLINKS.txt")) {
@@ -387,7 +391,8 @@ final class TermuxInstaller {
         return FileUtils.createDirectoryFile(directory.getAbsolutePath());
     }
 
-    // START TERMUX MERGE
+    // START TERMUX 
+    
     /** Get bootstrap zip url for this systems cpu architecture. */
     static URL determineZipUrl() throws MalformedURLException {
         String archName = determineTermuxArchName();
