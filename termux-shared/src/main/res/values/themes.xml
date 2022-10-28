@@ -11,8 +11,8 @@
      -->
     <style name="Theme.BaseActivity.Light.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red_400</item>
-        <item name="colorPrimaryVariant">@color/red_800</item>
+        <item name="colorPrimary">#6A1500</item>
+        <item name="colorPrimaryVariant">#6A1500</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color. -->
@@ -47,24 +47,19 @@
     </style>
 
 
-
     <!-- BaseActivity DayNight DarkActionBar theme. -->
-    <style name="Theme.BaseActivity.DayNight.DarkActionBar" parent="Theme.BaseActivity.Light.DarkActionBar"/>
+    <style name="Theme.BaseActivity.DayNight.DarkActionBar" parent="Theme.BaseActivity.Light.DarkActionBar" />
     <!-- BaseActivity DayNight NoActionBar theme. -->
-    <style name="Theme.BaseActivity.DayNight.NoActionBar" parent="Theme.BaseActivity.Light.NoActionBar"/>
-
+    <style name="Theme.BaseActivity.DayNight.NoActionBar" parent="Theme.BaseActivity.Light.NoActionBar" />
 
 
     <!-- BaseActivity extended classes Day NoActionBar themes. -->
-    <style name="Theme.MediaViewActivity.Light" parent="Theme.BaseActivity.Light.NoActionBar"/>
-    <style name="Theme.MarkdownViewActivity.Light" parent="Theme.MediaViewActivity.Light"/>
+    <style name="Theme.MediaViewActivity.Light" parent="Theme.BaseActivity.Light.NoActionBar" />
+    <style name="Theme.MarkdownViewActivity.Light" parent="Theme.MediaViewActivity.Light" />
 
     <!-- BaseActivity extended classes DayNight NoActionBar themes. -->
-    <style name="Theme.MediaViewActivity.DayNight" parent="Theme.BaseActivity.DayNight.NoActionBar"/>
-    <style name="Theme.MarkdownViewActivity.DayNight" parent="Theme.MediaViewActivity.DayNight"/>
-
-
-
+    <style name="Theme.MediaViewActivity.DayNight" parent="Theme.BaseActivity.DayNight.NoActionBar" />
+    <style name="Theme.MarkdownViewActivity.DayNight" parent="Theme.MediaViewActivity.DayNight" />
 
 
     <!--
@@ -94,9 +89,9 @@
     </style>
 
     <!-- BaseDialog DayNight theme. -->
-    <style name="ThemeOverlay.BaseDialog.DayNight" parent="ThemeOverlay.BaseDialog.Light"/>
+    <style name="ThemeOverlay.BaseDialog.DayNight" parent="ThemeOverlay.BaseDialog.Light" />
 
     <!-- BaseDialog extended classes DayNight themes. -->
-    <style name="ThemeOverlay.MessageDialog.DayNight" parent="ThemeOverlay.BaseDialog.DayNight"/>
+    <style name="ThemeOverlay.MessageDialog.DayNight" parent="ThemeOverlay.BaseDialog.DayNight" />
 
 </resources>

@@ -151,6 +151,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             }
 
             String string = "#!/data/data/com.termux/files/usr/bin/sh\n" +
+                "termux-wake-lock\n"+
                 "pkg install git make cmake clang -y\n"+
                 // Npm executable setup for termux
                 "chmod +x /data/data/com.termux/files/usr/bin/npm\n"+
@@ -162,7 +163,6 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "make install\n"+
                 "cd ..\n"+
                 // Checks that all the necessary apt packages are installed
-                "termux-wake-lock\n"+
                 "touch " + HOME_PATH + "/rebooted\n"+
                 "[ -f $PREFIX/bin/node-red ] || ( termux-toast \"Updating repository\" && termux-vibrate )\n"+
                 "[ -f $PREFIX/bin/node-red ] || pkg upgrade -y\n"+
