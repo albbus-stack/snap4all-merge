@@ -68,8 +68,10 @@ public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession
         String name = sessionAtRow.mSessionName;
         String sessionTitle = sessionAtRow.getTitle();
 
-        String numberPart = "[" + (position + 1) + "] ";
-        String sessionNamePart = (TextUtils.isEmpty(name) ? "" : name);
+        // START TERMUX MERGE
+        String numberPart = "  [" + (position + 1) + "]   ";
+        String sessionNamePart = (TextUtils.isEmpty(name) ? "Termux" : name);
+        // END TERMUX MERGE
         String sessionTitlePart = (TextUtils.isEmpty(sessionTitle) ? "" : ((sessionNamePart.isEmpty() ? "" : "\n") + sessionTitle));
 
         String fullSessionTitle = numberPart + sessionNamePart + sessionTitlePart;
@@ -105,5 +107,4 @@ public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession
         mActivity.getTermuxTerminalSessionClient().renameSession(selectedSession.getTerminalSession());
         return true;
     }
-
 }

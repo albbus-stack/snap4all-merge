@@ -309,7 +309,9 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
     void notifyOfSessionChange() {
         if (!mActivity.isVisible()) return;
 
-        if (!mActivity.getProperties().areTerminalSessionChangeToastsDisabled()) {
+        // START TERMUX MERGE
+        if (!mActivity.getProperties().areTerminalSessionChangeToastsDisabled() && mActivity.getCurrentSession() != null) {
+        // END TERMUX MERGE
             TerminalSession session = mActivity.getCurrentSession();
             mActivity.showToast(toToastTitle(session), false);
         }
@@ -479,7 +481,7 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
 
         final int indexOfSession = service.getIndexOfSession(session);
         if (indexOfSession < 0) return null;
-        StringBuilder toastTitle = new StringBuilder("[" + (indexOfSession + 1) + "]");
+        StringBuilder toastTitle = new StringBuilder(" [" + (indexOfSession + 1) + "]");
         if (!TextUtils.isEmpty(session.mSessionName)) {
             toastTitle.append(" ").append(session.mSessionName);
         }
