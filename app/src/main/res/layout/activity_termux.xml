@@ -40,23 +40,25 @@
                 android:layout_width="240dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
+                android:background="#222222"
                 android:choiceMode="singleChoice"
+                android:descendantFocusability="blocksDescendants"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp"
-                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <ImageButton
                         android:id="@+id/settings_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_settings"
                         android:background="@null"
-                        android:contentDescription="@string/action_open_settings" />
+                        android:contentDescription="@string/action_open_settings"
+                        android:src="@drawable/ic_settings" />
                 </LinearLayout>
 
                 <ListView
