@@ -73,7 +73,7 @@
          which will always use FLAG_GRANT_READ_URI_PERMISSION. -->
     <permission android:name="com.termux.sharedfiles.READ" android:protectionLevel="signature" />
 
-    <application android:name=".app.TermuxApplication" android:networkSecurityConfig="@xml/network_security_config" android:allowBackup="false" android:banner="@drawable/snap4all_banner" android:extractNativeLibs="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:label="Snap4All" android:supportsRtl="false" android:theme="@style/Theme.TermuxApp.DayNight.DarkActionBar">
+    <application android:name=".app.TermuxApplication" android:networkSecurityConfig="@xml/network_security_config" android:allowBackup="false" android:banner="@drawable/snap4all_banner" android:extractNativeLibs="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher" android:label="Snap4All" android:supportsRtl="false" android:theme="@style/Theme.TermuxApp.DayNight.DarkActionBar">
 
         <!-- This (or rather, value 2.1 or higher) is needed to make the Samsung Galaxy S8
              mark the app with "This app is optimized to run in full screen." -->
@@ -81,7 +81,7 @@
 
         <activity android:name=".MainActivity" android:screenOrientation="portrait" android:label="Snap4All"></activity>
         <activity android:name=".app.TermuxActivity"
-            android:label="Snap4All" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
+            android:label="Console" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

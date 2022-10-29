@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f8f0e6"
     android:fitsSystemWindows="false"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -10,7 +12,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffff"
         android:clipToPadding="true"
         android:fillViewport="true">
 
@@ -71,38 +72,44 @@
                 android:layout_marginRight="30dp"
                 android:gravity="center_vertical">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_node_red"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_weight="1"
-                    android:background="#6A1500"
+                    android:backgroundTint="@color/button_background_color"
                     android:drawableTop="@mipmap/nodered"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="10dp"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
-                    android:paddingTop="40dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingTop="35dp"
                     android:text="IOT APP EDITOR"
-                    android:textColor="#ffff"
-                    android:textSize="14sp" />
+                    android:textColor="@color/button_text_color"
+                    android:textSize="14sp"
+                    app:cornerRadius="10dp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_dashboard"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:background="#6A1500"
+                    android:backgroundTint="@color/button_background_color"
                     android:drawableTop="@mipmap/nodered_dashboard"
                     android:drawablePadding="5dp"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
-                    android:paddingTop="40dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingTop="35dp"
                     android:text="DASHBOARD"
                     android:textColor="#ffff"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:cornerRadius="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,41 +120,46 @@
                 android:layout_marginRight="30dp"
                 android:gravity="center">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_console"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_weight="1"
-                    android:background="#6A1500"
+                    android:backgroundTint="@color/button_background_color"
                     android:drawableTop="@mipmap/termux"
                     android:drawablePadding="5dp"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
-                    android:paddingTop="40dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingTop="35dp"
                     android:text="CONSOLE"
                     android:textColor="#ffff"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:cornerRadius="10dp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_info"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:background="#6A1500"
-                    android:backgroundTint="@null"
+                    android:backgroundTint="@color/button_background_color"
                     android:backgroundTintMode="add"
                     android:drawableTop="@mipmap/info"
                     android:drawablePadding="5dp"
                     android:drawableTint="#ffff"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
-                    android:paddingTop="40dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingTop="35dp"
                     android:text="INFO"
                     android:textColor="#ffff"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:cornerRadius="10dp" />
             </LinearLayout>
 
         </LinearLayout>
