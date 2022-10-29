@@ -107,7 +107,7 @@
                     android:insetBottom="0dp"
                     android:paddingTop="35dp"
                     android:text="DASHBOARD"
-                    android:textColor="#ffff"
+                    android:textColor="@color/button_text_color"
                     android:textSize="14sp"
                     app:cornerRadius="10dp" />
             </LinearLayout>
@@ -135,7 +135,7 @@
                     android:insetBottom="0dp"
                     android:paddingTop="35dp"
                     android:text="CONSOLE"
-                    android:textColor="#ffff"
+                    android:textColor="@color/button_text_color"
                     android:textSize="14sp"
                     app:cornerRadius="10dp" />
 
@@ -157,7 +157,7 @@
                     android:insetBottom="0dp"
                     android:paddingTop="35dp"
                     android:text="INFO"
-                    android:textColor="#ffff"
+                    android:textColor="@color/button_text_color"
                     android:textSize="14sp"
                     app:cornerRadius="10dp" />
             </LinearLayout>
