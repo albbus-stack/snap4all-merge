@@ -151,6 +151,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             }
 
             String apiPackagePath = "/data/data/com.termux/files/home/snap4all-termux-api-package";
+            String apiPackageInstallPath = "$PREFIX/libexec/termux-api";
             String nodeRedPath = "$PREFIX/bin/node-red";
             String nodePath = "$PREFIX/bin/node";
             String nodeRedTermuxApiPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api";
@@ -166,11 +167,11 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 // Installs a custom termux-api package
                 "[ -d "+apiPackagePath+" ] || pkg install git make cmake clang -y\n"+
                 "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
-                "[ -d "+apiPackagePath+" ] || cd snap4all-termux-api-package\n"+
-                "[ -d "+apiPackagePath+" ] || cmake CMakeLists.txt\n"+
-                "[ -d "+apiPackagePath+" ] || make\n"+
-                "[ -d "+apiPackagePath+" ] || make install\n"+
-                "[ -d "+apiPackagePath+" ] || cd ..\n"+
+                "[ -f "+apiPackagePath+"/Makefile ] || cd snap4all-termux-api-package\n"+
+                "[ -f "+apiPackagePath+"/Makefile ] || cmake CMakeLists.txt\n"+
+                "[ -f "+apiPackagePath+"/libtermux-api.so ] || make\n"+
+                "[ -f "+apiPackageInstallPath+" ] || make install\n"+
+                "[ -f "+apiPackageInstallPath+" ] || cd ..\n"+
                 // Checks that all the necessary apt packages are installed
                 "touch " + HOME_PATH + "/rebooted\n"+
                 "[ -f "+nodeRedPath+" ] || ( termux-toast \"Updating repository\" && "+vibration+" )\n"+
