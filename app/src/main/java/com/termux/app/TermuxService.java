@@ -150,7 +150,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 Log.d(".termux/boot", "Creation of .termux/boot folder returned:\n"+ result);
             }
 
-            String apiPackagePath = "/data/data/com.termux/files/home/snap4all-termux-api-package";
+            String apiPackagePath = "$HOME/snap4all-termux-api-package";
             String apiPackageInstallPath = "$PREFIX/libexec/termux-api";
             String nodeRedPath = "$PREFIX/bin/node-red";
             String nodePath = "$PREFIX/bin/node";
@@ -158,12 +158,15 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             String nodeRedDashboardPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard";
             String snap4CityPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user";
 
-            String vibration = "termux-vibrate -f -d 50";
+            String vibration = "termux-vibrate -f -d 70";
 
-            String string = "#!/data/data/com.termux/files/usr/bin/sh\n" +
+            // Script saved as .bashrc to run the setupScript when bash starts
+            String bashRcScript = "./.termux/boot/start";
+
+            String setupScript = "#!/data/data/com.termux/files/usr/bin/sh\n" +
                 "termux-wake-lock\n"+
                 // Npm executable setup for termux
-                "chmod +x /data/data/com.termux/files/usr/bin/npm\n"+
+                "chmod +x "+PREFIX_PATH+"/bin/npm\n"+
                 // Installs a custom termux-api package
                 "[ -d "+apiPackagePath+" ] || pkg install git make cmake clang -y\n"+
                 "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
@@ -191,21 +194,23 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+snap4CityPath+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && "+vibration+" ) \n"+
                 "[ -d "+snap4CityPath+" ] || npm install git+https://github.com/disit/node-red-contrib-snap4city-user.git\n"+
                 //"npm audit fix --force\n"+
-                // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers.
-                "termux-enable-buttons\n"+
+                // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "termux-toast \"starting node-red\" \n"+
+                "termux-enable-buttons\n"+
                 "node "+nodeRedPath+"\n"
                 ;
 
             try {
-                FileOutputStream fos = new FileOutputStream(new File(HOME_PATH+"/.termux/boot/start"));
-                fos.write(string.getBytes());
+                FileOutputStream fos = new FileOutputStream(HOME_PATH+"/.termux/boot/start");
+                fos.write(setupScript.getBytes());
                 fos.close();
+
+                FileOutputStream fosRc = new FileOutputStream(HOME_PATH+"/.bashrc");
+                fosRc.write(bashRcScript.getBytes());
+                fosRc.close();
 
                 Runtime rt = Runtime.getRuntime();
                 rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
-                //rt.exec("sh " + HOME_PATH + "/.termux/boot/start");
-
             }catch (Exception e) {
                 Log.d(".termux/boot/start","Creation of .termux/boot/start returned:\n"+e.getMessage());
             }
@@ -213,7 +218,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             // Update state in shared preferences
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
-            editor.commit();
+            editor.apply();
         }
         // END TERMUX MERGE
     }
