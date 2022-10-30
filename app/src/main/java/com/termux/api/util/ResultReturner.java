@@ -35,7 +35,7 @@ public abstract class ResultReturner {
      * An extra intent parameter which specifies a linux abstract namespace socket address where output from the API
      * call should be written.
      */
-    private static final String SOCKET_OUTPUT_EXTRA = "socket_output";
+    public static final String SOCKET_OUTPUT_EXTRA = "socket_output";
 
     /**
      * An extra intent parameter which specifies a linux abstract namespace socket address where input to the API call
