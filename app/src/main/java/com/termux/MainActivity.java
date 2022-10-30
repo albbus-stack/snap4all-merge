@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.termux.app.TermuxActivity;
+import com.termux.app.TermuxService;
+
+import java.io.File;
 
 public class MainActivity extends Activity {
 
@@ -31,19 +34,14 @@ public class MainActivity extends Activity {
     public void enableButtons() {
         MainActivity.enableNodeRed = true;
 
-        if (btnNodeRed != null && !btnNodeRed.isEnabled() && btnDashboard != null && !btnDashboard.isEnabled()) {
-            try{
-                // Wait a little longer to allow the node-red server to fully start
-                Thread.sleep(5000);
+        if (btnNodeRed != null && !btnNodeRed.isEnabled()) {
+            btnNodeRed.setEnabled(true);
+            btnNodeRed.refreshDrawableState();           
+        }
 
-                btnNodeRed.setEnabled(true);
-                btnNodeRed.refreshDrawableState();
-
-                btnDashboard.setEnabled(true);
-                btnDashboard.refreshDrawableState();
-            } catch(Exception e){
-                e.printStackTrace();
-            }
+        if(btnDashboard != null && !btnDashboard.isEnabled()){
+            btnDashboard.setEnabled(true);
+            btnDashboard.refreshDrawableState();
         }
     }
 
@@ -97,10 +95,11 @@ public class MainActivity extends Activity {
         btnInfo = (Button) findViewById(R.id.btn_info);
         btnInfo.setOnClickListener(v -> startActivity(info_intent));
 
-        if(firstRender){
+        File installed = new File(TermuxService.HOME_PATH + "/installed");
+        if(firstRender && !installed.exists()){
             alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("Installation");
-            alertDialog.setMessage("All the necessary packages are being installed, this process takes a couple of minutes.\n\nYou will be notified with a vibration and a toast message everytime the installation progresses.\n\nIn the meantime you can use the Termux console to check the ongoing installation logs or read the information page for more insights.");
+            alertDialog.setMessage("All the necessary packages are being installed, this process takes a couple of minutes.\n\nYou will be notified with a vibration and a toast message everytime the installation progresses.\n\nWhen the installation completes the buttons to access the node-red app will be enabled.\n\nIn the meantime you can use the Termux console to check the ongoing installation logs or read the information page for more insights about this app.");
             alertDialog.show();
         }
         firstRender = false;

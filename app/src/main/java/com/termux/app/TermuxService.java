@@ -176,7 +176,6 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -f "+apiPackageInstallPath+" ] || make install\n"+
                 "[ -f "+apiPackageInstallPath+" ] || cd ..\n"+
                 // Checks that all the necessary apt packages are installed
-                "touch " + HOME_PATH + "/rebooted\n"+
                 "[ -f "+nodeRedPath+" ] || ( termux-toast \"Updating repository\" && "+vibration+" )\n"+
                 "[ -f "+nodeRedPath+" ] || pkg upgrade -y\n"+
                 "[ -f "+nodePath+" ] || ( termux-toast \"Installing packages\" && "+vibration+" )\n"+
@@ -195,6 +194,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+snap4CityPath+" ] || npm install git+https://github.com/disit/node-red-contrib-snap4city-user.git\n"+
                 //"npm audit fix --force\n"+
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
+                "touch " + HOME_PATH + "/installed\n"+
                 "termux-toast \"starting node-red\" \n"+
                 "termux-enable-buttons\n"+
                 "node "+nodeRedPath+"\n"
