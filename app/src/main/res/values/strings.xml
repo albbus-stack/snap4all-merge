@@ -14,6 +14,13 @@
 <resources>
 
     <string name="application_name">Snap4all</string>
+    <string name="application_description">A tool that configures a node red installation with the Snap4City suite.</string>
+
+    <string name="btn_nodered">IOT APP EDITOR</string>
+    <string name="btn_dashboard">DASHBOARD</string>
+    <string name="btn_console">CONSOLE</string>
+    <string name="btn_info">INFO</string>
+
     <string name="shared_user_label">Termux user</string>
     <string name="new_session">New session</string>
     <string name="new_session_failsafe">Failsafe</string>
