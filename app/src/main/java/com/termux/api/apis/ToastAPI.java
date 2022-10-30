@@ -23,7 +23,7 @@ public class ToastAPI {
         Logger.logDebug(LOG_TAG, "onReceive");
 
         final int durationExtra = intent.getBooleanExtra("short", false) ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
-        final int backgroundColor = getColorExtra(intent, "background", Color.GRAY);
+        final int backgroundColor = getColorExtra(intent, "background", Color.BLACK);
         final int textColor = getColorExtra(intent, "text_color", Color.WHITE);
         final int gravity = getGravityExtra(intent);
 

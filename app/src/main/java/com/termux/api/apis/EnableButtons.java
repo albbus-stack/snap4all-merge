@@ -1,4 +1,4 @@
-package com.termux.api;
+package com.termux.api.apis;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,18 +7,18 @@ import android.util.JsonWriter;
 import android.util.Log;
 
 import com.termux.MainActivity;
+import com.termux.api.TermuxApiReceiver;
 import com.termux.api.util.ResultReturner;
 
 // TERMUX MERGE
 public class EnableButtons {
-
-    static void onReceive(TermuxApiReceiver apiReceiver, final Context context, final Intent intent) {
+    public static void onReceive(TermuxApiReceiver apiReceiver, final Context context, final Intent intent) {
         ResultReturner.returnData(apiReceiver, intent, new ResultReturner.ResultJsonWriter() {
 
             final Handler handler = new Handler();
 
             @Override
-            public void writeJson(final JsonWriter out) throws Exception {
+            public void writeJson(final JsonWriter out) {
                 try{
 
                     Log.d("termux-api-java", "Setting enableNodeRed to true");
@@ -26,12 +26,9 @@ public class EnableButtons {
 
                 if(MainActivity.activity!=null) {
 
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.d("termux-api-java", "Calling enableButtons");
-                            MainActivity.activity.enableButtons();
-                        }
+                    handler.post(() -> {
+                        Log.d("termux-api-java", "Calling enableButtons");
+                        MainActivity.activity.enableButtons();
                     });
 
                 }

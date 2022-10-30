@@ -5,11 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.provider.Settings;
 import android.widget.Toast;
 
 import com.termux.api.apis.AudioAPI;
 import com.termux.api.apis.BatteryStatusAPI;
+import com.termux.api.apis.BluetoothAPI;
 import com.termux.api.apis.BrightnessAPI;
 import com.termux.api.apis.CallLogAPI;
 import com.termux.api.apis.CameraInfoAPI;
@@ -18,6 +20,7 @@ import com.termux.api.apis.ClipboardAPI;
 import com.termux.api.apis.ContactListAPI;
 import com.termux.api.apis.DialogAPI;
 import com.termux.api.apis.DownloadAPI;
+import com.termux.api.apis.EnableButtons;
 import com.termux.api.apis.FingerprintAPI;
 import com.termux.api.apis.InfraredAPI;
 import com.termux.api.apis.JobSchedulerAPI;
@@ -103,14 +106,16 @@ public class TermuxApiReceiver extends BroadcastReceiver {
                 break;
             // END TERMUX MERGE
             case "Brightness":
-                if (!Settings.System.canWrite(context)) {
-                    TermuxApiPermissionActivity.checkAndRequestPermissions(context, intent, Manifest.permission.WRITE_SETTINGS);
-                    Toast.makeText(context, "Please enable permission for Termux:API", Toast.LENGTH_LONG).show();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.System.canWrite(context)) {
+                        TermuxApiPermissionActivity.checkAndRequestPermissions(context, intent, Manifest.permission.WRITE_SETTINGS);
+                        Toast.makeText(context, "Please enable permission for Termux:API", Toast.LENGTH_LONG).show();
 
-                    // user must enable WRITE_SETTINGS permission this special way
-                    Intent settingsIntent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    context.startActivity(settingsIntent);
-                    return;
+                        // user must enable WRITE_SETTINGS permission this special way
+                        Intent settingsIntent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                        context.startActivity(settingsIntent);
+                        return;
+                    }
                 }
                 BrightnessAPI.onReceive(this, context, intent);
                 break;

@@ -13,8 +13,8 @@
 
 <resources>
 
-    <string name="application_name">Snap4all</string>
-    <string name="application_description">A tool that configures a node red installation with the Snap4City suite.</string>
+    <string name="application_name">Snap4All</string>
+    <string name="application_description">A tool that configures a node-red installation with the Snap4City suite.</string>
 
     <string name="btn_nodered">IOT APP EDITOR</string>
     <string name="btn_dashboard">DASHBOARD</string>
