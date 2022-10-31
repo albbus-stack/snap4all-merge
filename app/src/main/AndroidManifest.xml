@@ -81,7 +81,7 @@
 
         <activity android:name=".MainActivity" android:screenOrientation="portrait" android:label="Snap4All"/>
         <activity android:name=".app.TermuxActivity"
-            android:label="Console" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
+            android:label="Snap4All" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
