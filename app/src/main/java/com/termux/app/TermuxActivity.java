@@ -69,6 +69,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A terminal emulator activity.
@@ -224,7 +225,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setContentView(R.layout.activity_termux);
 
-        //START TERMUX MERGE
+        // START TERMUX MERGE
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Console");
 
 		MainOptions = new Intent(this, MainActivity.class);
         startActivity(MainOptions);

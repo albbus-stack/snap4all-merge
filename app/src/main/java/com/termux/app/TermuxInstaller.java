@@ -119,11 +119,11 @@ final class TermuxInstaller {
         }
 
         // START TERMUX MERGE
-  		//final ProgressDialog progress = ProgressDialog.show(activity, null, activity.getString(R.string.bootstrap_installer_body), true, false);
 
-		final ProgressDialog progress = ProgressDialog.show(mainOptions, null, mainOptions.getString(R.string.bootstrap_installer_body), true, false);	
+		//final ProgressDialog progress = ProgressDialog.show(mainOptions, null, mainOptions.getString(R.string.bootstrap_installer_body), true, false);
 
 		// END TERMUX MERGE
+
         new Thread() {
             @Override
             public void run() {
@@ -242,15 +242,20 @@ final class TermuxInstaller {
                 } catch (final Exception e) {
                     showBootstrapErrorDialog(activity, whenDone, Logger.getStackTracesMarkdownString(null, Logger.getStackTracesStringArray(e)), mainOptions);
 
-                } finally {
-                    activity.runOnUiThread(() -> {
-                        try {
-                            progress.dismiss();
-                        } catch (RuntimeException e) {
-                            // Activity already dismissed - ignore.
-                        }
-                    });
                 }
+                // START TERMUX MERGE
+
+//                finally {
+//                    activity.runOnUiThread(() -> {
+//                        try {
+//                            progress.dismiss();
+//                        } catch (RuntimeException e) {
+//                            // Activity already dismissed - ignore.
+//                        }
+//                    });
+//                }
+
+                // START TERMUX MERGE
             }
         }.start();
     }
