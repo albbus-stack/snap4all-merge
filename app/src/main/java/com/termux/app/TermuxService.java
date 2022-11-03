@@ -168,7 +168,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 // Npm executable setup for termux
                 "chmod +x "+PREFIX_PATH+"/bin/npm\n"+
                 // Installs a custom termux-api package
-                "[ -d "+apiPackagePath+" ] || pkg install git make cmake clang -y\n"+
+                "[ -d "+apiPackagePath+" ] || pkg install clang -y\n"+
                 "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
                 "[ -f "+apiPackagePath+"/Makefile ] || cd snap4all-termux-api-package\n"+
                 "[ -f "+apiPackagePath+"/Makefile ] || cmake CMakeLists.txt\n"+
@@ -179,7 +179,6 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -f "+nodeRedPath+" ] || ( termux-toast \"Updating repository\" && "+vibration+" )\n"+
                 "[ -f "+nodeRedPath+" ] || pkg upgrade -y\n"+
                 "[ -f "+nodePath+" ] || ( termux-toast \"Installing packages\" && "+vibration+" )\n"+
-                "[ -f "+nodePath+" ] || pkg -y install coreutils nano nodejs openssh\n"+
                 // Installs node-red and its submodules
                 "[ -f "+nodeRedPath+" ] || ( termux-toast \"Installing node-red\" && "+vibration+" )\n"+
                 "[ -f "+nodeRedPath+" ] || npm i -g --unsafe-perm node-red\n" +
