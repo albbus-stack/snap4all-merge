@@ -57,8 +57,8 @@ yes | $ANDROID_HOME/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} --licenses
 
 echo "[*] Cloning and building app..."
 
-# This has to point to the compilation fork of the snap4all repo
-git clone https://github.com/albbus-stack/snap4all
+# This has to point to the compile branch of the snap4all repo
+git clone -b compile-branch --single-branch https://github.com/albbus-stack/snap4all
 
 rm snap4all/app/src/main/cpp/bootstrap-*
 mv termux-packages/bootstrap-* snap4all/app/src/main/cpp

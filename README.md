@@ -8,6 +8,6 @@ To build the application, run the following command in your vm:
 
 ```bash
 
-curl https://raw.githubusercontent.com/albbus-stack/snap4all/snap4all-compile-branch/generate-and-build.sh | bash
+curl https://raw.githubusercontent.com/albbus-stack/snap4all/compile-branch/generate-and-build.sh | bash
 
 ```
