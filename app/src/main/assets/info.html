@@ -5,9 +5,56 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Info</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style type="text/css">
+            body {
+                font-family: "Quicksand", sans-serif;
+                background-color: #f8f0e6;
+                color: #211c16;
+                padding: 1rem 1.75rem;
+                margin-bottom: 3rem;
+                margin:0;
+                margin-bottom:0.5rem;
+            }
+
+            br {
+                margin-bottom: 1.5rem;
+            }
+
+            h2 {
+                text-align: center;
+                font-size: 1.2rem;
+                margin-bottom: 1.2rem;
+                margin-top: 1.2rem;
+            }
+
+            h4 {
+                margin-top: 0;
+                margin-bottom: 0.4rem;
+                padding: 0;
+            }
+        </style>
     </head>
+
     <body>
+        <h2>Installation</h2>
+
+        <p>
+            On the first app load the Termux base packages will be installed, this usually takes around 20 seconds after which the console button in the home page will be activated.
+            <br /><br />
+            Once the Termux console has finished installing, you will be asked to grant the app the
+            permission to run in the background. This is necessary for the app to serve Node-RED at all times. 
+            <br /><br />
+            After that, the app will download Node-RED along with its <a href="#node-red-packages">additional plugins</a> and setup them. This is the longest part of the installation since it can take up to 5 minutes depending on your phone and network speed.
+        </p>
+
         <h2>How it works</h2>
+
         <p>
             To finalize the installation of Snap4all the device must be
             restarted. Once restarted, the new features will be shown in the
@@ -15,57 +62,63 @@
             or read this info page. If the Termux console is disabled please
             check your internet connection, then close and reopen the app before
             restarting.
-            <br />
-            There are three main section of this app:
+
+            <br /><br />
+            The app consists of the following main sections:
+
+            <h4>Termux console</h4>
+            This is the Termux console of your device in which you can run any
+            command. since you cannot install this app and the official Termux
+            app at the same time). Do your own research and use at your own
+            risk.
+
+            <br /><br />
+            <h4>IoT app editor</h4>
+            Opens the IoT app editor of your local Node-RED server where you can
+            build your own IoT app using the preinstalled <a href="#node-red-packages">utility packages</a> for
+            Termux and Snap4All.
+
+            <br /><br />
+            <h4>IoT app dashboard</h4>
+            Opens the IoT app dashboard of your local server where you can
+            monitor your IoT app after having configured it properly following
+            the
+            <a href="https://nodered.org/docs/">Node-RED documentation</a>. We
+            recommend you to use this to display the contents of a
+            <a href="https://flows.nodered.org/node/node-red-dashboard"
+                >Node-RED dashboard</a
+            >
+            app since it's an included package.
+            
+            <br /><br />
+            <i>
+                <b>+</b> it's likely that a "starting node-red" toast is shown
+                several times, this is normal since the operating system closes
+                the server following Android's battery-saving policy, the
+                Termux:Boot service will try to restart it as soon as possible.
+            </i>
         </p>
-        <ol>
-            <li>
-                <b>Termux console</b>: this is the Termux console of your device
-                (since you cannot install this app and the official Termux app
-                at the same time). Do your own research and use at your own
-                risk.
-            </li>
-            <li>
-                <b>IoT app editor</b>: opens the IoT app editor of your local
-                Node-RED server where you can build your own IoT app.
-            </li>
-            <li>
-                <b>IoT app dashboard</b>: opens the IoT app dashboard of your
-                local server where you can monitor your own iot app after having
-                configured it properly following the
-                <a href="https://nodered.org/docs/">Node-RED documentation</a>.
-                You can also use this to display the contents of a
-                <a href="https://flows.nodered.org/node/node-red-dashboard"
-                    >Node-RED dashboard</a
-                >
-                app.
-            </li>
-        </ol>
+
+
+        <h2>Installed Packages</h2>
+        <p>
+            <h4>apt - Build utilities</h4>
+            cmake, make, clang, git, openssh, coreutils, nodejs, nano
+
+            <br /><br />
+            <h4 id="node-red-packages">npm - Node-RED packages</h4>
+            node-red, node-red-contrib-termux-api, node-red-dashboard, node-red-contrib-snap4city-user
+        </p>
+
+        <h2>Credits</h2>
 
         <p>
-            Obviously the IoT app editor and dashboard buttons are enabled only
-            after the Node-RED server starts up.
-            <br />
-            <i
-                ><b>*</b> is possible that a toast stating "starting node-red"
-                is shown several times, this is normal since the operating
-                system closes the server following Android's battery-saving
-                policy, the termux-boot service will try to restart it as soon
-                as it is closed.</i
-            >
+            This app is based on the <a href="https://termux.dev/en/">Termux</a> app by Fredrik Fornwall and the
+            <a href="https://nodered.org/">Node-RED</a> app by IBM. The app has been developed under the Snap4City project of the University of Florence, you can read more about who is involved on the <a href="https://www.snap4city.org/214">Snap4City site</a>. 
         </p>
-        <h2>Example usage</h2>
-        <ol>
-            <li>Install the application.</li>
-            <li>Reboot your phone.</li>
-            <li>Open the application.</li>
-            <li>
-                Open the iot app editor and enjoy the full Node-RED framework on
-                your phone.
-            </li>
-        </ol>
 
         <h2>Disclaimer</h2>
+
         <p>
             This Mobile application Snap4All has been developed to realize
             IOT/IOE edge devices for smart city and industry 4.0 applications,
@@ -116,36 +169,5 @@
             Snap4All parts. Modified elements of former tools and libraries are
             released according to the source licenses.
         </p>
-
-        <h2>Credits</h2>
-        <p>
-            <a href="https://www.snap4city.org/214">Snap4City</a>
-            <!--<br>&<br>
-            Alberto Del Buono Paolini
-            <br>&<br>
-            Federico Marra
-            -->
-        </p>
-
     </body>
-    <style type="text/css">
-        body {
-            display: flex;
-            background-color: #f8f0e6;
-            color: #211c16;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2rem;
-            margin-bottom: 3rem;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        br {
-            margin-bottom: 1.5rem;
-        }
-    </style>
 </html>
