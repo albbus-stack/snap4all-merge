@@ -97,9 +97,9 @@ public class MainActivity extends Activity {
 
         File installed = new File(TermuxService.HOME_PATH + "/installed");
         if(firstRender && !installed.exists()){
-            alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog = new AlertDialog.Builder(this, R.style.CustomAlertDialog).create();
             alertDialog.setTitle("Installation");
-            alertDialog.setMessage("All the necessary packages are being installed, this process takes a couple of minutes.\n\nYou will be notified with a vibration and a toast message everytime the installation progresses.\n\nWhen the installation completes the buttons to access the node-red app will be enabled.\n\nIn the meantime you can use the Termux console to check the ongoing installation logs or read the information page for more insights about this app.");
+            alertDialog.setMessage("\nAll the necessary packages are being installed, this process takes a couple of minutes.\n\nYou will be notified with a vibration and a toast message everytime the installation progresses.\n\nWhen the installation completes the buttons to access the node-red app will be enabled.\n\nIn the meantime you can use the Termux console to check the ongoing installation logs or read the information page for more insights about this app.\n");
             alertDialog.show();
         }
         firstRender = false;
