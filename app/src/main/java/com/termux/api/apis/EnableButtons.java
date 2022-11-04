@@ -24,10 +24,10 @@ public class EnableButtons {
                     MainActivity.enableNodeRed=true;
 
                     if(MainActivity.activity!=null) {
-                        handler.post(() -> {
+                        handler.postDelayed(() -> {
                             Log.d("termux-api-java", "Calling enableButtons");
                             MainActivity.activity.enableButtons();
-                        });
+                        }, 3000);
                     }
                 }catch(Exception e){
                     Log.d("termux-api-java","EnableButtons failed with:\n"+e.getMessage());
