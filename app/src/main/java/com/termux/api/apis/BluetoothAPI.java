@@ -71,7 +71,8 @@ public class BluetoothAPI {
                 scanning = true;
                 deviceList.clear();
                 bluetoothStartScanning();
-
+                
+                Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     bluetoothStopScanning();
                     scanning = false;
