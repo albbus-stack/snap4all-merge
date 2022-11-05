@@ -100,29 +100,29 @@ public class BluetoothAPI {
                     JsonWriter writer = new JsonWriter(out);
                     writer.setIndent("  ");
 
-                    if(inputString.equals("")) {
-                        writer.beginObject().name("message:").value("invalid input").endObject();
-                    } else {
-                        //Implement Bluetooth connection here to the device with the name inputString
-                        mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(inputString);
-                        mBluetoothConnectProgressDialog = ProgressDialog.show(this, "Connecting...", mBluetoothDevice.getName() + " : " + mBluetoothDevice.getAddress(), true, false);
-                        Thread mBlutoothConnectThread = new Thread(this);
-                        mBlutoothConnectThread.start();
+                    // if(inputString.equals("")) {
+                    //     writer.beginObject().name("message:").value("invalid input").endObject();
+                    // } else {
+                    //     Implement Bluetooth connection here to the device with the name inputString
+                    //     mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(inputString);
+                    //     mBluetoothConnectProgressDialog = ProgressDialog.show(this, "Connecting...", mBluetoothDevice.getName() + " : " + mBluetoothDevice.getAddress(), true, false);
+                    //     Thread mBlutoothConnectThread = new Thread(this);
+                    //     mBlutoothConnectThread.start();
 
-                        try {
-                            BluetoothSocket mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(applicationUUID);
-                            mBluetoothAdapter.cancelDiscovery();
-                            mBluetoothSocket.connect();
-                            mHandler.sendEmptyMessage(0);
-                        } catch (IOException eConnectException) {
-                            Log.d(TAG, "CouldNotConnectToSocket", eConnectException);
+                    //     try {
+                    //         BluetoothSocket mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(applicationUUID);
+                    //         mBluetoothAdapter.cancelDiscovery();
+                    //         mBluetoothSocket.connect();
+                    //         mHandler.sendEmptyMessage(0);
+                    //     } catch (IOException eConnectException) {
+                    //         Log.d(TAG, "CouldNotConnectToSocket", eConnectException);
 
-                            writer.beginObject().name("message:").value("Bluetooth cannot connect to " + inputString).endObject();
-                            out.println();
+                    //         writer.beginObject().name("message:").value("Bluetooth cannot connect to " + inputString).endObject();
+                    //         out.println();
 
-                            closeSocket(mBluetoothSocket);
-                            return;
-                        }
+                    //         closeSocket(mBluetoothSocket);
+                    //         return;
+                    //     }
 
                         writer.beginObject().name("message:").value("Bluetooth connected to " + inputString).endObject();
                         out.println();
