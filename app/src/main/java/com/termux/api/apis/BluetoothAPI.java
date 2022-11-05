@@ -135,12 +135,12 @@ public class BluetoothAPI {
         });
     }
 
-    private Handler mHandler = new Handler() 
-    {
-        @Override
-        public void handleMessage(Message msg) 
-        {
-            mBluetoothConnectProgressDialog.dismiss();
-        }
-    };
+    // private Handler mHandler = new Handler() 
+    // {
+    //     @Override
+    //     public void handleMessage(Message msg) 
+    //     {
+    //         mBluetoothConnectProgressDialog.dismiss();
+    //     }
+    // };
 }
