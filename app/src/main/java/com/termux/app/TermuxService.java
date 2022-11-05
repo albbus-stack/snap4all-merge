@@ -191,11 +191,11 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+nodeRedDashboardPath+" ] || npm install node-red-dashboard\n"+
                 "[ -d "+snap4CityPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+snap4CityPath+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && "+vibration+" ) \n"+
-                "[ -d "+snap4CityPath+" ] || npm install git+https://github.com/disit/node-red-contrib-snap4city-user.git\n"+
+                "[ -d "+snap4CityPath+" ] || npm install node-red-contrib-snap4city-user\n"+
                 //"npm audit fix --force\n"+
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "touch " + HOME_PATH + "/installed\n"+
-                "termux-toast \"starting node-red\" \n"+
+                "termux-toast \"starting node-red\" && "+vibration+"\n"+
                 "termux-enable-buttons\n"+
                 "node "+nodeRedPath+"\n"
                 ;
@@ -883,10 +883,13 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     private Notification buildNotification() {
         Resources res = getResources();
 
-        // Set pending intent to be launched when notification is clicked
-        Intent notificationIntent = TermuxActivity.newInstance(this);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        // START TERMUX MERGE
 
+        // Set pending intent to be launched when notification is clicked
+        TermuxActivity.MainOptions.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, TermuxActivity.MainOptions, 0);
+
+        // END TERMUX MERGE
 
         // Set notification text
         int sessionCount = getTermuxSessionsSize();

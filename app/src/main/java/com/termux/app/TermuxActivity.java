@@ -193,10 +193,11 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     private static final int CONTEXT_MENU_REPORT_ID = 9;
 
     // START TERMUX MERGE
+
 	public static boolean first_activity_options=false;
 	public static boolean installed=false;
- 	MainActivity mainOptions_activity;
- 	private Intent MainOptions;
+ 	public static Intent MainOptions;
+    
 	// END TERMUX MERGE
 
     private static final String ARG_TERMINAL_TOOLBAR_TEXT_INPUT = "terminal_toolbar_text_input";

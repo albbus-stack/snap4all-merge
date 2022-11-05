@@ -80,6 +80,7 @@
         <meta-data android:name="android.max_aspect" android:value="10.0" />
 
         <activity android:name=".MainActivity" android:screenOrientation="portrait" android:label="Snap4All"/>
+
         <activity android:name=".app.TermuxActivity"
             android:label="Snap4All" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
             <intent-filter>
@@ -128,7 +129,7 @@
             android:noHistory="true"
             android:resizeableActivity="true"
             android:taskAffinity="com.termux.filereceiver"
-            tools:targetApi="n"></activity>
+            tools:targetApi="n" />
 
         <activity-alias
             android:name=".app.api.file.FileShareReceiverActivity"
