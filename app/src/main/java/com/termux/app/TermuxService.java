@@ -158,6 +158,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             String nodeRedDashboardPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard";
             String snap4CityPathUser = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user";
             String snap4CityPathDeveloper = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-developer";
+            String nodeRedTermuxApiPatched = "$HOME/node-red-termux-api-patched";
 
             String vibration = "termux-vibrate -f -d 70";
 
@@ -183,6 +184,10 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+nodeRedTermuxApiPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+nodeRedTermuxApiPath+" ] || ( termux-toast \"Installing termux-api nodes\" && "+vibration+" ) \n"+
                 "[ -d "+nodeRedTermuxApiPath+" ] || npm install node-red-contrib-termux-api\n"+
+                "[ -f "+nodeRedTermuxApiPatched+" ] || cd $HOME\n"+
+                "[ -f "+nodeRedTermuxApiPatched+" ] || curl https://raw.githubusercontent.com/albbus-stack/node-red-contrib-termux-api/master/index.js > index.js\n"+
+                "[ -f "+nodeRedTermuxApiPatched+" ] || mv index.js ../usr/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api/\n"+
+                "[ -f "+nodeRedTermuxApiPatched+" ] || touch node-red-termux-api-patched\n"+
                 "[ -d "+nodeRedDashboardPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+nodeRedDashboardPath+" ] || ( termux-toast \"Installing node-red-dashboard\" && "+vibration+" ) \n"+
                 "[ -d "+nodeRedDashboardPath+" ] || npm install node-red-dashboard\n"+
