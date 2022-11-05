@@ -126,7 +126,7 @@ public class BluetoothAPI {
 
                         writer.beginObject().name("message:").value("Bluetooth connected to " + inputString).endObject();
                         out.println();
-                    }
+                    //}
                 }catch(Exception e){
                     Log.d("Except BluetoothConnect", e.getMessage());
 
