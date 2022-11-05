@@ -169,7 +169,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 // Npm executable setup for termux
                 "chmod +x "+PREFIX_PATH+"/bin/npm\n"+
                 // Installs a custom termux-api package
-                "[ -d "+apiPackagePath+" ] || pkg install clang -y\n"+
+                "[ -d "+apiPackagePath+" ] || pkg install clang -o DPkg::Options::=\"--force-confold\" -y\n"+
                 "[ -d "+apiPackagePath+" ] || pkg upgrade -o DPkg::Options::=\"--force-confold\" -y\n"+
                 "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
                 "[ -f "+apiPackagePath+"/Makefile ] || cd snap4all-termux-api-package\n"+
@@ -177,11 +177,8 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -f "+apiPackagePath+"/libtermux-api.so ] || make\n"+
                 "[ -f "+apiPackageInstallPath+" ] || make install\n"+
                 "[ -f "+apiPackageInstallPath+" ] || cd ..\n"+
-                // Checks that all the necessary apt packages are installed
-                "[ -f "+nodeRedPath+" ] || ( termux-toast \"Updating repository\" && "+vibration+" )\n"+
-                "[ -f "+nodeRedPath+" ] || pkg upgrade -y\n"+
-                "[ -f "+nodePath+" ] || ( termux-toast \"Installing packages\" && "+vibration+" )\n"+
                 // Installs node-red and its submodules
+                "[ -f "+nodePath+" ] || ( termux-toast \"Installing packages\" && "+vibration+" )\n"+
                 "[ -f "+nodeRedPath+" ] || ( termux-toast \"Installing node-red\" && "+vibration+" )\n"+
                 "[ -f "+nodeRedPath+" ] || npm i -g --unsafe-perm node-red\n" +
                 "[ -d "+nodeRedTermuxApiPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
