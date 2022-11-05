@@ -158,7 +158,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             String nodeRedDashboardPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard";
             String snap4CityPathUser = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user";
             String snap4CityPathDeveloper = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-developer";
-            String nodeRedTermuxApiPatched = "$HOME/node-red-termux-api-patched";
+            String isInstalled = "$HOME/installed";
 
             String vibration = "termux-vibrate -f -d 70";
 
@@ -168,7 +168,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             String setupScript = "#!/data/data/com.termux/files/usr/bin/sh\n" +
                 "termux-wake-lock\n"+
                 // Npm executable setup for termux
-                "chmod +x "+PREFIX_PATH+"/bin/npm\n"+
+                "[ -f "+isInstalled+" ] || chmod +x "+PREFIX_PATH+"/bin/npm\n"+
                 // Installs a custom termux-api package
                 "[ -d "+apiPackagePath+" ] || pkg install clang -o DPkg::Options::=\"--force-confold\" --no-upgrade -y\n"+
                 "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
@@ -184,10 +184,9 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+nodeRedTermuxApiPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+nodeRedTermuxApiPath+" ] || ( termux-toast \"Installing termux-api nodes\" && "+vibration+" ) \n"+
                 "[ -d "+nodeRedTermuxApiPath+" ] || npm install node-red-contrib-termux-api\n"+
-                "[ -f "+nodeRedTermuxApiPatched+" ] || cd $HOME\n"+
-                "[ -f "+nodeRedTermuxApiPatched+" ] || curl https://raw.githubusercontent.com/albbus-stack/node-red-contrib-termux-api/master/index.js > index.js\n"+
-                "[ -f "+nodeRedTermuxApiPatched+" ] || mv index.js ../usr/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api/\n"+
-                "[ -f "+nodeRedTermuxApiPatched+" ] || touch node-red-termux-api-patched\n"+
+                "[ -f "+isInstalled+" ] || cd $HOME\n"+
+                "[ -f "+isInstalled+" ] || curl https://raw.githubusercontent.com/albbus-stack/node-red-contrib-termux-api/master/index.js > index.js\n"+
+                "[ -f "+isInstalled+" ] || mv index.js ../usr/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api/\n"+
                 "[ -d "+nodeRedDashboardPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+nodeRedDashboardPath+" ] || ( termux-toast \"Installing node-red-dashboard\" && "+vibration+" ) \n"+
                 "[ -d "+nodeRedDashboardPath+" ] || npm install node-red-dashboard\n"+
@@ -198,10 +197,10 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+snap4CityPathDeveloper+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-developer nodes\" && "+vibration+" ) \n"+
                 "[ -d "+snap4CityPathDeveloper+" ] || npm install node-red-contrib-snap4city-developer\n"+
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
-                "touch " + HOME_PATH + "/installed\n"+
+                "[ -f "+isInstalled+" ] || touch $HOME/installed\n"+
                 "termux-toast \"starting node-red\" && "+vibration+"\n"+
                 "termux-enable-buttons\n"+
-                "node "+nodeRedPath+"\n"
+                "node "+nodeRedPath+" || $HOME/.termux/boot/start\n"
                 ;
 
             try {
