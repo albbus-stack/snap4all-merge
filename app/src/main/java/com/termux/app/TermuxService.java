@@ -156,7 +156,8 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             String nodePath = "$PREFIX/bin/node";
             String nodeRedTermuxApiPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api";
             String nodeRedDashboardPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-dashboard";
-            String snap4CityPath = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user";
+            String snap4CityPathUser = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-user";
+            String snap4CityPathDeveloper = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-developer";
 
             String vibration = "termux-vibrate -f -d 70";
 
@@ -189,10 +190,12 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+nodeRedDashboardPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+nodeRedDashboardPath+" ] || ( termux-toast \"Installing node-red-dashboard\" && "+vibration+" ) \n"+
                 "[ -d "+nodeRedDashboardPath+" ] || npm install node-red-dashboard\n"+
-                "[ -d "+snap4CityPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
-                "[ -d "+snap4CityPath+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && "+vibration+" ) \n"+
-                "[ -d "+snap4CityPath+" ] || npm install node-red-contrib-snap4city-user\n"+
-                //"npm audit fix --force\n"+
+                "[ -d "+snap4CityPathUser+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
+                "[ -d "+snap4CityPathUser+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-user nodes\" && "+vibration+" ) \n"+
+                "[ -d "+snap4CityPathUser+" ] || npm install node-red-contrib-snap4city-user\n"+
+                "[ -d "+snap4CityPathDeveloper+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
+                "[ -d "+snap4CityPathDeveloper+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-developer nodes\" && "+vibration+" ) \n"+
+                "[ -d "+snap4CityPathDeveloper+" ] || npm install node-red-contrib-snap4city-developer\n"+
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "touch " + HOME_PATH + "/installed\n"+
                 "termux-toast \"starting node-red\" && "+vibration+"\n"+

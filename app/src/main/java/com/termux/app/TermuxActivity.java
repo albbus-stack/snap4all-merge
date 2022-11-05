@@ -194,7 +194,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     // START TERMUX MERGE
 
-	public static boolean first_activity_options=false;
 	public static boolean installed=false;
  	public static Intent MainOptions;
     
@@ -232,7 +231,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
 		MainOptions = new Intent(this, MainActivity.class);
         startActivity(MainOptions);
-        first_activity_options=true;
 
 		//END TERMUX MERGE
 
@@ -645,7 +643,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             finish();
         }*/
 
-		MainActivity.ActualActivity="MainActivity";
         startActivity(MainOptions);
 
 		//END TERMUX MERGE

@@ -28,7 +28,6 @@ public class MainActivity extends Activity {
 
     public static boolean firstRender = true;
     public static boolean enableNodeRed = false;
-    public static String ActualActivity = "MainActivity";
 
     // This allows Termux to enable the buttons on MainActivity once the installation is completed
     public void enableButtons() {
@@ -61,9 +60,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        // Remembers the last activity used, in this case the MainActivity
-        ActualActivity = "MainActivity";
-
         // This minimizes the app without closing it when pressing back on the main screen
         minimizeApp();
     }
@@ -86,7 +82,6 @@ public class MainActivity extends Activity {
 
         btnConsole = (Button) findViewById(R.id.btn_console);
         btnConsole.setOnClickListener(v -> {
-            ActualActivity = "TermuxConsole";
             moveToConsole();
         });
         btnConsole.setEnabled(false);
@@ -99,7 +94,7 @@ public class MainActivity extends Activity {
         if(firstRender && !installed.exists()){
             alertDialog = new AlertDialog.Builder(this, R.style.CustomAlertDialog).create();
             alertDialog.setTitle("Installation");
-            alertDialog.setMessage("\nAll the necessary packages are being installed, this process takes a couple of minutes.\n\nYou will be notified with a vibration and a toast message everytime the installation progresses.\n\nWhen the installation completes the buttons to access the node-red app will be enabled.\n\nIn the meantime you can use the Termux console to check the ongoing installation logs or read the information page for more insights about this app.\n");
+            alertDialog.setMessage("\nAll the necessary packages are being installed, this process takes a couple of minutes.\n\nYou will be notified with a vibration and a toast message everytime the installation progresses.\n\nWhen the installation completes, the buttons to access the Node-RED app will be enabled.\n\nIn the meantime you can use the Termux console to check the ongoing installation logs.\n\nWe strongly recommend that you read the information page for more insights about the usage and functionality of this app.\n");
             alertDialog.show();
         }
         firstRender = false;
@@ -118,7 +113,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        TermuxActivity.first_activity_options = false;
         if (alertDialog != null) {
             alertDialog.dismiss();
             alertDialog = null;
