@@ -169,7 +169,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 // Npm executable setup for termux
                 "chmod +x "+PREFIX_PATH+"/bin/npm\n"+
                 // Installs a custom termux-api package
-                "[ -d "+apiPackagePath+" ] || pkg install clang -o DPkg::Options::=\"--force-confold\" -y\n"+
+                "[ -d "+apiPackagePath+" ] || pkg install clang -o DPkg::Options::=\"--force-confold\" --no-upgrade -y\n"+
                 "[ -d "+apiPackagePath+" ] || git clone https://github.com/albbus-stack/snap4all-termux-api-package\n"+
                 "[ -f "+apiPackagePath+"/Makefile ] || cd snap4all-termux-api-package\n"+
                 "[ -f "+apiPackagePath+"/Makefile ] || cmake CMakeLists.txt\n"+
