@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.JsonWriter;
 import android.util.Log;
+import android.os.Handler;
 
 import com.termux.MainActivity;
 import com.termux.api.TermuxApiReceiver;
