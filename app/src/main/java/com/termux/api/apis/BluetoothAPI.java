@@ -1,11 +1,14 @@
 package com.termux.api.apis;
 
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Looper;
 import android.util.JsonWriter;
 import android.util.Log;
 import android.os.Handler;
@@ -14,12 +17,15 @@ import com.termux.MainActivity;
 import com.termux.api.TermuxApiReceiver;
 import com.termux.api.util.ResultReturner;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class BluetoothAPI {
+
+    private static final String LOG_TAG = "BluetoothAPI";
 
     private static boolean scanning = false;
     private static Set<String> deviceList = new HashSet<String>();
@@ -46,8 +52,11 @@ public class BluetoothAPI {
             }
         }
     };
+    private static BluetoothDevice mBluetoothDevice;
+    private static ProgressDialog mBluetoothConnectProgressDialog;
+    private static BluetoothSocket mBluetoothSocket;
 
-    public static void bluetoothStartScanning(){
+    public static void bluetoothStartScanning() {
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         MainActivity.activity.getBaseContext().registerReceiver(mReceiver, filter);
         unregistered = false;
@@ -55,11 +64,11 @@ public class BluetoothAPI {
         mBluetoothAdapter.startDiscovery();
     }
 
-    public static void bluetoothStopScanning(){
-        if(!unregistered) {
+    public static void bluetoothStopScanning() {
+        if (!unregistered) {
             mBluetoothAdapter.cancelDiscovery();
             MainActivity.activity.getBaseContext().unregisterReceiver(mReceiver);
-            unregistered=true;
+            unregistered = true;
         }
     }
 
@@ -71,7 +80,7 @@ public class BluetoothAPI {
                 scanning = true;
                 deviceList.clear();
                 bluetoothStartScanning();
-                
+
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     bluetoothStopScanning();
@@ -94,7 +103,7 @@ public class BluetoothAPI {
 
 
     public static void onReceiveBluetoothConnect(TermuxApiReceiver apiReceiver, final Context context, final Intent intent) {
-        ResultReturner.returnData(apiReceiver, intent,new ResultReturner.WithStringInput(){
+        ResultReturner.returnData(apiReceiver, intent, new ResultReturner.WithStringInput() {
 
             @Override
             public void writeResult(PrintWriter out) throws Exception {
@@ -102,34 +111,34 @@ public class BluetoothAPI {
                     JsonWriter writer = new JsonWriter(out);
                     writer.setIndent("  ");
 
-                    // if(inputString.equals("")) {
-                    //     writer.beginObject().name("message:").value("invalid input").endObject();
-                    // } else {
-                    //     Implement Bluetooth connection here to the device with the name inputString
-                    //     mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(inputString);
-                    //     mBluetoothConnectProgressDialog = ProgressDialog.show(this, "Connecting...", mBluetoothDevice.getName() + " : " + mBluetoothDevice.getAddress(), true, false);
-                    //     Thread mBlutoothConnectThread = new Thread(this);
-                    //     mBlutoothConnectThread.start();
+                    if (inputString.equals("")) {
+                        writer.beginObject().name("message:").value("invalid input").endObject();
+                    } else {
+                        //Implement Bluetooth connection here to the device with the name inputString
+                        mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(inputString);
+                        mBluetoothConnectProgressDialog = ProgressDialog.show(MainActivity.activity, "Connecting...", mBluetoothDevice.getName() + " : " + mBluetoothDevice.getAddress(), true, false);
+                        Thread mBluetoothConnectThread = new Thread("");
+                        mBluetoothConnectThread.start();
 
-                    //     try {
-                    //         BluetoothSocket mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(applicationUUID);
-                    //         mBluetoothAdapter.cancelDiscovery();
-                    //         mBluetoothSocket.connect();
-                    //         mHandler.sendEmptyMessage(0);
-                    //     } catch (IOException eConnectException) {
-                    //         Log.d(TAG, "CouldNotConnectToSocket", eConnectException);
+                        try {
+                            mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                            mBluetoothAdapter.cancelDiscovery();
+                            mBluetoothSocket.connect();
+                            mHandler.sendEmptyMessage(0);
+                        } catch (IOException eConnectException) {
+                            Log.d(LOG_TAG, "CouldNotConnectToSocket", eConnectException);
 
-                    //         writer.beginObject().name("message:").value("Bluetooth cannot connect to " + inputString).endObject();
-                    //         out.println();
+                            writer.beginObject().name("message:").value("Bluetooth cannot connect to " + inputString).endObject();
+                            out.println();
 
-                    //         closeSocket(mBluetoothSocket);
-                    //         return;
-                    //     }
+                            closeSocket(mBluetoothSocket);
+                            return;
+                        }
 
                         writer.beginObject().name("message:").value("Bluetooth connected to " + inputString).endObject();
                         out.println();
-                    //}
-                }catch(Exception e){
+                    }
+                } catch (Exception e) {
                     Log.d("Except BluetoothConnect", e.getMessage());
 
                 }
@@ -137,12 +146,17 @@ public class BluetoothAPI {
         });
     }
 
-    // private Handler mHandler = new Handler() 
-    // {
-    //     @Override
-    //     public void handleMessage(Message msg) 
-    //     {
-    //         mBluetoothConnectProgressDialog.dismiss();
-    //     }
-    // };
+    private static void closeSocket(BluetoothSocket nOpenSocket) {
+        try {
+            nOpenSocket.close();
+            Log.d(LOG_TAG, "SocketClosed");
+        } catch (IOException ex) {
+            Log.d(LOG_TAG, "CouldNotCloseSocket");
+        }
+    }
+
+    private static final Handler mHandler = new Handler(Looper.myLooper(), (msg) -> {
+        mBluetoothConnectProgressDialog.dismiss();
+        return true;
+    });
 }
