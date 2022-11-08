@@ -116,8 +116,8 @@ public class BluetoothAPI {
                     } else {
                         //Implement Bluetooth connection here to the device with the name inputString
                         mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(inputString);
-                        mBluetoothConnectProgressDialog = ProgressDialog.show(MainActivity.activity, "Connecting...", mBluetoothDevice.getName() + " : " + mBluetoothDevice.getAddress(), true, false);
-                        Thread mBluetoothConnectThread = new Thread("");
+                        mBluetoothConnectProgressDialog = ProgressDialog.show(context, "Connecting...", mBluetoothDevice.getName() + " : " + mBluetoothDevice.getAddress(), true, false);
+                        Thread mBluetoothConnectThread = new Thread(context.toString());
                         mBluetoothConnectThread.start();
 
                         try {
