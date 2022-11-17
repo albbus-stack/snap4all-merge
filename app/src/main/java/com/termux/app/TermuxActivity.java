@@ -194,7 +194,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     // START TERMUX MERGE
 
+    // A boolean to store the installation status
 	public static boolean installed=false;
+
+    // An Intent used to launch and reference the MainActivity
  	public static Intent MainOptions;
     
 	// END TERMUX MERGE
@@ -227,12 +230,14 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         // START TERMUX MERGE
 
+        // Changes the console ActionBar title
         Objects.requireNonNull(getSupportActionBar()).setTitle("Console");
 
+        // Starts the MainActivity on creation
 		MainOptions = new Intent(this, MainActivity.class);
         startActivity(MainOptions);
 
-		//END TERMUX MERGE
+		// END TERMUX MERGE
 
         // Load termux shared preferences
         // This will also fail if TermuxConstants.TERMUX_PACKAGE_NAME does not equal applicationId
@@ -418,6 +423,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                 TermuxInstaller.setupBootstrapIfNeeded(TermuxActivity.this, () -> {
                     // START TERMUX MERGE
 
+                    // Enables the console button on the MainActivity if the setup was successful
  					MainActivity.activity.btnConsole.setEnabled(true);
 
 					// END TERMUX MERGE
@@ -444,6 +450,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         } else {       
             // START TERMUX MERGE
 
+            // Enables the console button on the MainActivity if there is already a session
 			MainActivity.activity.btnConsole.setEnabled(true);
 
 			// END TERMUX MERGE
@@ -636,16 +643,17 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     @SuppressLint("RtlHardcoded")
     @Override
     public void onBackPressed() {
-        //START TERMUX MERGE
+        // START TERMUX MERGE
         /*if (getDrawer().isDrawerOpen(Gravity.LEFT)) {
             getDrawer().closeDrawers();
         } else {
             finish();
         }*/
 
+        // Forces to come back to the MainActivity after pressing the back button while in the console
         startActivity(MainOptions);
 
-		//END TERMUX MERGE
+		// END TERMUX MERGE
     }
 
     public void finishActivityIfNotFinishing() {

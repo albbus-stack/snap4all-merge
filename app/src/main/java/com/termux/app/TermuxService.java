@@ -145,7 +145,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
         if (!prefs.getBoolean("firstTime", false)) {
             // Run your one time code here
             
-            // If the parent dir doesn't exist, create it
+            // Creates the Termux boot directory
             File folder = new File(HOME_PATH+"/.termux/boot/");
             Log.d(".termux/boot",HOME_PATH+"/.termux/boot/");
 
@@ -153,7 +153,8 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 boolean result = folder.mkdirs();
                 Log.d(".termux/boot", "Creation of .termux/boot folder returned:\n"+ result);
             }
-
+            
+            // These are all the necessary paths to check the installation of each component
             String apiPackagePath = "$HOME/snap4all-termux-api-package";
             String apiPackageInstallPath = "$PREFIX/libexec/termux-api";
             String nodeRedPath = "$PREFIX/bin/node-red";
@@ -164,9 +165,10 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             String snap4CityPathDeveloper = "$PREFIX/lib/node_modules/node-red/node_modules/node-red-contrib-snap4city-developer";
             String isInstalled = "$HOME/installed";
 
+            // Sets up a vibration to be used in the setup script
             String vibration = "termux-vibrate -f -d 70";
 
-            // Method to import the node-red flows example
+            // Imports the node-red flows example as a string to save it on Termux
             String nodeRedFlows = null;
             try {
                 nodeRedFlows = new String(Files.readAllBytes(Paths.get("flows-battery.json")), StandardCharsets.UTF_8);
@@ -174,7 +176,6 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 e.printStackTrace();
             }
 
-            // Script saved as .bashrc to run the setupScript when bash starts
             String bashRcScript = "./.termux/boot/start";
 
             String setupScript = "#!/data/data/com.termux/files/usr/bin/sh\n" +
@@ -208,6 +209,8 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+snap4CityPathDeveloper+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+snap4CityPathDeveloper+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-developer nodes\" && "+vibration+" ) \n"+
                 "[ -d "+snap4CityPathDeveloper+" ] || npm install node-red-contrib-snap4city-developer\n"+
+                // Moves the node-red flows example to the node-red folder
+                "[ -f "+isInstalled+" ] || mv -f $HOME/flows.json $HOME/.node-red/\n"+                
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "[ -f "+isInstalled+" ] || touch $HOME/installed\n"+
                 "termux-toast \"starting node-red\" && "+vibration+"\n"+
@@ -216,15 +219,18 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 ;
 
             try {
+                // Saves the setup script in the boot folder of Termux
                 FileOutputStream fos = new FileOutputStream(HOME_PATH+"/.termux/boot/start");
                 fos.write(setupScript.getBytes());
                 fos.close();
 
+                // Saves the .bashrc script to run the setup script when bash starts
                 FileOutputStream fosRc = new FileOutputStream(HOME_PATH+"/.bashrc");
                 fosRc.write(bashRcScript.getBytes());
                 fosRc.close();
 
-                FileOutputStream fosNodeRed = new FileOutputStream(HOME_PATH+"/.node-red/flows.json");
+                // Saves the node-red flows example on the home folder
+                FileOutputStream fosNodeRed = new FileOutputStream(HOME_PATH+"/flows.json");
                 fosNodeRed.write(nodeRedFlows.getBytes());
                 fosNodeRed.close();
 
@@ -234,7 +240,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 Log.d(".termux/boot/start","Creation of .termux/boot/start returned:\n"+e.getMessage());
             }
 
-            // Update state in shared preferences
+            // Update the firstTime state in shared preferences
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.apply();
@@ -904,7 +910,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
 
         // START TERMUX MERGE
 
-        // Set pending intent to be launched when notification is clicked
+        // Set pending intent, pointing to the MainActivity, to be launched when notification is clicked
         TermuxActivity.MainOptions.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, TermuxActivity.MainOptions, 0);
 

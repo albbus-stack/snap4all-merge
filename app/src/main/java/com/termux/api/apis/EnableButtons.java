@@ -11,6 +11,7 @@ import com.termux.api.TermuxApiReceiver;
 import com.termux.api.util.ResultReturner;
 
 // TERMUX MERGE
+// This is the implementation of the termux-api command "termux-enable-buttons". Its purpose is to forward the call to the MainActivity with an appropriate delay.
 public class EnableButtons {
     public static void onReceive(TermuxApiReceiver apiReceiver, final Context context, final Intent intent) {
         ResultReturner.returnData(apiReceiver, intent, new ResultReturner.ResultJsonWriter() {

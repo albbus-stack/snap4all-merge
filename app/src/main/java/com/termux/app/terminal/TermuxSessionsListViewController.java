@@ -69,9 +69,13 @@ public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession
         String sessionTitle = sessionAtRow.getTitle();
 
         // START TERMUX MERGE
+
+        // Fixed the session naming for consistency
         String numberPart = "  [" + (position + 1) + "]   ";
         String sessionNamePart = (TextUtils.isEmpty(name) ? "Termux" : name);
+
         // END TERMUX MERGE
+        
         String sessionTitlePart = (TextUtils.isEmpty(sessionTitle) ? "" : ((sessionNamePart.isEmpty() ? "" : "\n") + sessionTitle));
 
         String fullSessionTitle = numberPart + sessionNamePart + sessionTitlePart;

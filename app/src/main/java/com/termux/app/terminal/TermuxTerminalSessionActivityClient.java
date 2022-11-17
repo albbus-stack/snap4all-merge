@@ -126,8 +126,11 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
         if (!mActivity.isVisible()) return;
 
         // START TERMUX MERGE
+
+        // Prevents the toast for other sessions from being shown when the current session is changed
         if (updatedSession != mActivity.getCurrentSession() && mActivity.getTermuxService().getIndexOfSession(updatedSession) != 0) {
             // END TERMUX MERGE
+
             // Only show toast for other sessions than the current one, since the user
             // probably consciously caused the title change to change in the current session
             // and don't want an annoying toast for that.
@@ -310,6 +313,8 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
         if (!mActivity.isVisible()) return;
 
         // START TERMUX MERGE
+
+        // Prevents the toast for other sessions from being shown when the current session is changed
         TerminalSession session = mActivity.getCurrentSession();
 
         if (!mActivity.getProperties().areTerminalSessionChangeToastsDisabled() && mActivity.getTermuxService().getIndexOfSession(session) != 0) {

@@ -23,6 +23,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+// TERMUX MERGE
+
+// This is the implementation of the termux-api command "termux-bluetooth". Its purpose is to supply a bluetooth scan and bluetooth connect methods.
 public class BluetoothAPI {
 
     private static final String LOG_TAG = "BluetoothAPI";

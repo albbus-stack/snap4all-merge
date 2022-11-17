@@ -120,6 +120,8 @@ final class TermuxInstaller {
 
         // START TERMUX MERGE
 
+        // Removed installation progress dialog that interfered with the app information dialog
+
 		//final ProgressDialog progress = ProgressDialog.show(mainOptions, null, mainOptions.getString(R.string.bootstrap_installer_body), true, false);
 
 		// END TERMUX MERGE
@@ -165,7 +167,9 @@ final class TermuxInstaller {
                     final byte[] buffer = new byte[8096];
                     final List<Pair<String, String>> symlinks = new ArrayList<>(50);
 
-                    // START TERMUX 
+                    // START TERMUX MERGE
+
+                    // Changed methods to use the local .zip bootstrap file instead of fetching it from a url
 
                     //final URL zipUrl = determineZipUrl();
                     final byte[] zipBytes = loadZipBytes();
@@ -244,6 +248,8 @@ final class TermuxInstaller {
 
                 }
                 // START TERMUX MERGE
+                
+                // Removed installation progress dialog logic
 
 //                finally {
 //                    activity.runOnUiThread(() -> {
@@ -255,7 +261,7 @@ final class TermuxInstaller {
 //                    });
 //                }
 
-                // START TERMUX MERGE
+                // END TERMUX MERGE
             }
         }.start();
     }
@@ -396,44 +402,46 @@ final class TermuxInstaller {
         return FileUtils.createDirectoryFile(directory.getAbsolutePath());
     }
 
-    // START TERMUX 
+    // START TERMUX MERGE
+
+    // Removed from previous merge because we supply the bootstrap .zip file ourselves
     
     /** Get bootstrap zip url for this systems cpu architecture. */
-    static URL determineZipUrl() throws MalformedURLException {
-        String archName = determineTermuxArchName();
+    // static URL determineZipUrl() throws MalformedURLException {
+    //     String archName = determineTermuxArchName();
 
-        return new URL("https://www.snap4city.org/download/video/noderedapp/bootstrap-" + archName + "-v2.zip");
-        //return new URL("https://www.km4city.org/noderedapp/bootstrap-" + archName + ".zip");
-		//return new URL("http://192.168.128.7/bootstrap-" + archName + "-v2.zip");
-    }
+    //     return new URL("https://www.snap4city.org/download/video/noderedapp/bootstrap-" + archName + "-v2.zip");
+    //     //return new URL("https://www.km4city.org/noderedapp/bootstrap-" + archName + ".zip");
+	// 	//return new URL("http://192.168.128.7/bootstrap-" + archName + "-v2.zip");
+    // }
 
-    private static String determineTermuxArchName() {
-        // Note that we cannot use System.getProperty("os.arch") since that may give e.g. "aarch64"
-        // while a 64-bit runtime may not be installed (like on the Samsung Galaxy S5 Neo).
-        // Instead we search through the supported abi:s on the device, see:
-        // http://developer.android.com/ndk/guides/abis.html
-        // Note that we search for abi:s in preferred order (the ordering of the
-        // Build.SUPPORTED_ABIS list) to avoid e.g. installing arm on an x86 system where arm
-        // emulation is available.
-        for (String androidArch : Build.SUPPORTED_ABIS) {
-            switch (androidArch) {
-                case "arm64-v8a": return "aarch64";
-                case "armeabi-v7a": return "arm";
-                case "x86_64": return "x86_64";
-                case "x86": return "i686";
-            }
-        }
-        throw new RuntimeException("Unable to determine arch from Build.SUPPORTED_ABIS =  " +
-            Arrays.toString(Build.SUPPORTED_ABIS));
-    }
-
-	// END TERMUX MERGE
+    // private static String determineTermuxArchName() {
+    //     // Note that we cannot use System.getProperty("os.arch") since that may give e.g. "aarch64"
+    //     // while a 64-bit runtime may not be installed (like on the Samsung Galaxy S5 Neo).
+    //     // Instead we search through the supported abi:s on the device, see:
+    //     // http://developer.android.com/ndk/guides/abis.html
+    //     // Note that we search for abi:s in preferred order (the ordering of the
+    //     // Build.SUPPORTED_ABIS list) to avoid e.g. installing arm on an x86 system where arm
+    //     // emulation is available.
+    //     for (String androidArch : Build.SUPPORTED_ABIS) {
+    //         switch (androidArch) {
+    //             case "arm64-v8a": return "aarch64";
+    //             case "armeabi-v7a": return "arm";
+    //             case "x86_64": return "x86_64";
+    //             case "x86": return "i686";
+    //         }
+    //     }
+    //     throw new RuntimeException("Unable to determine arch from Build.SUPPORTED_ABIS =  " +
+    //         Arrays.toString(Build.SUPPORTED_ABIS));
+    // }
 
     public static byte[] loadZipBytes() {
         // Only load the shared library when necessary to save memory usage.
         System.loadLibrary("termux-bootstrap");
         return getZip();
     }
+
+    // END TERMUX MERGE
 
     public static native byte[] getZip();
 
