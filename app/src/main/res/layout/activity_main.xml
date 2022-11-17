@@ -37,7 +37,9 @@
         android:background="#6A1500"
         android:fitsSystemWindows="false"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/text_description"
