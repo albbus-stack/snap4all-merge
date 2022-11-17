@@ -168,14 +168,6 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
             // Sets up a vibration to be used in the setup script
             String vibration = "termux-vibrate -f -d 70";
 
-            // Imports the node-red flows example as a string to save it on Termux
-            String nodeRedFlows = null;
-            try {
-                nodeRedFlows = new String(Files.readAllBytes(Paths.get("flows-battery.json")), StandardCharsets.UTF_8);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             String bashRcScript = "./.termux/boot/start";
 
             String setupScript = "#!/data/data/com.termux/files/usr/bin/sh\n" +
@@ -210,8 +202,10 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+snap4CityPathDeveloper+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+snap4CityPathDeveloper+" ] || ( termux-toast \"Installing node-red-contrib-snap4city-developer nodes\" && "+vibration+" ) \n"+
                 "[ -d "+snap4CityPathDeveloper+" ] || npm install node-red-contrib-snap4city-developer\n"+
-                // Moves the node-red flows example to the node-red folder
-                "[ -f "+isInstalled+" ] || mv -f $HOME/flows.json $HOME/.node-red/\n"+                
+                // Downloads and moves the node-red flows example to the node-red folder
+                "[ -f "+isInstalled+" ] || cd $HOME\n"+
+                "[ -f "+isInstalled+" ] || curl https://raw.githubusercontent.com/albbus-stack/snap4all/master/app/src/main/java/com/termux/app/flows-battery.json > flows.json\n"+
+                "[ -f "+isInstalled+" ] || mv -f flows.json ./.node-red/\n"+                
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "[ -f "+isInstalled+" ] || touch $HOME/installed\n"+
                 "termux-toast \"starting node-red\" && "+vibration+"\n"+
@@ -230,23 +224,19 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 fosRc.write(bashRcScript.getBytes());
                 fosRc.close();
 
-                // Saves the node-red flows example on the home folder
-                FileOutputStream fosNodeRed = new FileOutputStream(HOME_PATH+"/flows.json");
-                fosNodeRed.write(nodeRedFlows.getBytes());
-                fosNodeRed.close();
-
             }catch (Exception e) {
                 Log.d("termux-setup-files","Creation of the Termux setup files returned:\n"+e.getMessage());
             }
 
             try {
+                // Makes the setup script executable
                 Runtime rt = Runtime.getRuntime();
                 rt.exec("chmod +x $HOME/.termux/boot/start");
             }catch (Exception e) {
-                Log.d(".termux/boot/start","Changing privileges to executable of .termux/boot/start returned:\n"+e.getMessage());
+                Log.d(".termux/boot/start","Adding executable privileges to .termux/boot/start returned:\n"+e.getMessage());
             }
 
-            // Update the firstTime state in shared preferences
+            // Updates the firstTime state in shared preferences
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.apply();
