@@ -248,7 +248,7 @@ final class TermuxInstaller {
 
                 }
                 // START TERMUX MERGE
-                
+
                 // Removed installation progress dialog logic
 
 //                finally {
@@ -402,10 +402,10 @@ final class TermuxInstaller {
         return FileUtils.createDirectoryFile(directory.getAbsolutePath());
     }
 
-    // START TERMUX MERGE
+     // START TERMUX MERGE
 
     // Removed from previous merge because we supply the bootstrap .zip file ourselves
-    
+
     /** Get bootstrap zip url for this systems cpu architecture. */
     // static URL determineZipUrl() throws MalformedURLException {
     //     String archName = determineTermuxArchName();

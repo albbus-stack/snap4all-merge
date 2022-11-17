@@ -49,10 +49,6 @@ import com.termux.terminal.TerminalEmulator;
 import com.termux.terminal.TerminalSession;
 import com.termux.terminal.TerminalSessionClient;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.File;
@@ -205,7 +201,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 // Downloads and moves the node-red flows example to the node-red folder
                 "[ -f "+isInstalled+" ] || cd $HOME\n"+
                 "[ -f "+isInstalled+" ] || curl https://raw.githubusercontent.com/albbus-stack/snap4all/master/app/src/main/java/com/termux/app/flows-battery.json > flows.json\n"+
-                "[ -f "+isInstalled+" ] || mv -f flows.json ./.node-red/\n"+                
+                "[ -f "+isInstalled+" ] || mv -f flows.json .node-red/\n"+                
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "[ -f "+isInstalled+" ] || touch $HOME/installed\n"+
                 "termux-toast \"starting node-red\" && "+vibration+"\n"+
@@ -224,16 +220,12 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 fosRc.write(bashRcScript.getBytes());
                 fosRc.close();
 
-            }catch (Exception e) {
-                Log.d("termux-setup-files","Creation of the Termux setup files returned:\n"+e.getMessage());
-            }
-
-            try {
                 // Makes the setup script executable
                 Runtime rt = Runtime.getRuntime();
-                rt.exec("chmod +x $HOME/.termux/boot/start");
+                rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
+
             }catch (Exception e) {
-                Log.d(".termux/boot/start","Adding executable privileges to .termux/boot/start returned:\n"+e.getMessage());
+                Log.d("termux-setup-files","Creation of the Termux setup files returned:\n"+e.getMessage());
             }
 
             // Updates the firstTime state in shared preferences
