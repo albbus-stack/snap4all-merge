@@ -1,0 +1,163 @@
+[
+    {
+        "id": "7cb62eb9eade0e42",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "21b6f3b867d62589",
+        "type": "ui_button",
+        "z": "7cb62eb9eade0e42",
+        "name": "",
+        "group": "750cd5ea0f445792",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "button",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "5a7c036f0f2d57c3"
+            ]
+        ]
+    },
+    {
+        "id": "5a7c036f0f2d57c3",
+        "type": "termux-battery-status",
+        "z": "7cb62eb9eade0e42",
+        "name": "",
+        "topic": "",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "dffbe8b7f29432c5"
+            ]
+        ]
+    },
+    {
+        "id": "dffbe8b7f29432c5",
+        "type": "function",
+        "z": "7cb62eb9eade0e42",
+        "name": "batteryPayload",
+        "func": "msg.payload={\n    \"name\": \"battery\",\n    \"value\": parseFloat(msg.payload.percentage),\n    \"type\": \"float\"\n};\nmsg.payload=JSON.stringify(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "25e54714cba82e6e",
+                "8eae5e96745122bd"
+            ]
+        ]
+    },
+    {
+        "id": "25e54714cba82e6e",
+        "type": "fiware-orion-out",
+        "z": "7cb62eb9eade0e42",
+        "name": "",
+        "tls": "",
+        "service": "14b35d311b6574ec",
+        "entype": "Ambiental",
+        "enid": "",
+        "userk1": "",
+        "passk2": "",
+        "tenant": "",
+        "servicepath": "",
+        "apikey": "",
+        "basicAuth": "",
+        "x": 150,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b4426c47a984567f",
+        "type": "inject",
+        "z": "7cb62eb9eade0e42",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "5a7c036f0f2d57c3"
+            ]
+        ]
+    },
+    {
+        "id": "8eae5e96745122bd",
+        "type": "debug",
+        "z": "7cb62eb9eade0e42",
+        "name": "batteryPayloadDebug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "750cd5ea0f445792",
+        "type": "ui_group",
+        "name": "Dashboard",
+        "tab": "df28481a1120caae",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "14b35d311b6574ec",
+        "type": "orion-service",
+        "name": "orionUNIFI",
+        "url": "broker1.snap4city.org",
+        "port": "8080"
+    },
+    {
+        "id": "df28481a1120caae",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

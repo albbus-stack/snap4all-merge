@@ -49,6 +49,10 @@ import com.termux.terminal.TerminalEmulator;
 import com.termux.terminal.TerminalSession;
 import com.termux.terminal.TerminalSessionClient;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.File;
@@ -162,6 +166,14 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
 
             String vibration = "termux-vibrate -f -d 70";
 
+            // Method to import the node-red flows example
+            String nodeRedFlows = null;
+            try {
+                nodeRedFlows = new String(Files.readAllBytes(Paths.get("flows-battery.json")), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             // Script saved as .bashrc to run the setupScript when bash starts
             String bashRcScript = "./.termux/boot/start";
 
@@ -211,6 +223,10 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 FileOutputStream fosRc = new FileOutputStream(HOME_PATH+"/.bashrc");
                 fosRc.write(bashRcScript.getBytes());
                 fosRc.close();
+
+                FileOutputStream fosNodeRed = new FileOutputStream(HOME_PATH+"/.node-red/flows.json");
+                fosNodeRed.write(nodeRedFlows.getBytes());
+                fosNodeRed.close();
 
                 Runtime rt = Runtime.getRuntime();
                 rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
