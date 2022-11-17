@@ -197,6 +197,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+nodeRedTermuxApiPath+" ] || cd $PREFIX/lib/node_modules/node-red/\n"+
                 "[ -d "+nodeRedTermuxApiPath+" ] || ( termux-toast \"Installing termux-api nodes\" && "+vibration+" ) \n"+
                 "[ -d "+nodeRedTermuxApiPath+" ] || npm install node-red-contrib-termux-api\n"+
+                // Changing index.js of node-red-contrib-termux-api to an updated one with the new node.js function signatures
                 "[ -f "+isInstalled+" ] || cd $HOME\n"+
                 "[ -f "+isInstalled+" ] || curl https://raw.githubusercontent.com/albbus-stack/node-red-contrib-termux-api/master/index.js > index.js\n"+
                 "[ -f "+isInstalled+" ] || mv index.js ../usr/lib/node_modules/node-red/node_modules/node-red-contrib-termux-api/\n"+
@@ -234,10 +235,15 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 fosNodeRed.write(nodeRedFlows.getBytes());
                 fosNodeRed.close();
 
-                Runtime rt = Runtime.getRuntime();
-                rt.exec("chmod +x " + HOME_PATH + "/.termux/boot/start");
             }catch (Exception e) {
-                Log.d(".termux/boot/start","Creation of .termux/boot/start returned:\n"+e.getMessage());
+                Log.d("termux-setup-files","Creation of the Termux setup files returned:\n"+e.getMessage());
+            }
+
+            try {
+                Runtime rt = Runtime.getRuntime();
+                rt.exec("chmod +x $HOME/.termux/boot/start");
+            }catch (Exception e) {
+                Log.d(".termux/boot/start","Changing privileges to executable of .termux/boot/start returned:\n"+e.getMessage());
             }
 
             // Update the firstTime state in shared preferences
