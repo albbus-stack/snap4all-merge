@@ -200,8 +200,9 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                 "[ -d "+snap4CityPathDeveloper+" ] || npm install node-red-contrib-snap4city-developer\n"+
                 // Downloads and moves the node-red flows example to the node-red folder
                 "[ -f "+isInstalled+" ] || cd $HOME\n"+
-                "[ -f "+isInstalled+" ] || curl https://raw.githubusercontent.com/albbus-stack/snap4all/master/app/src/main/java/com/termux/app/flows-battery.json > flows.json\n"+
-                "[ -f "+isInstalled+" ] || mv -f flows.json .node-red/\n"+                
+                // Download from GitHub the json file of flows example
+                "[ -f "+isInstalled+" ] || curl https://raw.githubusercontent.com/albbus-stack/snap4all/master/app/src/main/java/com/termux/app/flows-example.json > flows.json\n"+
+                "[ -f "+isInstalled+" ] || mv -f flows.json .node-red/\n"+
                 // Enables the buttons on the main page and starts the node-red server, this part executes every time on boot since it has no modifiers
                 "[ -f "+isInstalled+" ] || touch $HOME/installed\n"+
                 "termux-toast \"starting node-red\" && "+vibration+"\n"+
