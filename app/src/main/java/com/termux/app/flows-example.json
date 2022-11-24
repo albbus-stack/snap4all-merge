@@ -2,10 +2,166 @@
     {
         "id": "7cb62eb9eade0e42",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Flow battery example 1",
         "disabled": false,
         "info": "",
         "env": []
+    },
+    {
+        "id": "5fe35985eeef4342",
+        "type": "tab",
+        "label": "Flow wifi example 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "df28481a1120caae",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ae5d28d5489d961a",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "750cd5ea0f445792",
+        "type": "ui_group",
+        "name": "Dashboard",
+        "tab": "df28481a1120caae",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "14b35d311b6574ec",
+        "type": "orion-service",
+        "name": "orionUNIFI",
+        "url": "broker1.snap4city.org",
+        "port": "8080"
+    },
+    {
+        "id": "284bfe8b1ba51697",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2b560290acbb928b",
+        "type": "ui_group",
+        "name": "Camera",
+        "tab": "284bfe8b1ba51697",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1d19b55ef72d69a9",
+        "type": "orion-service",
+        "name": "orionUNIFI",
+        "url": "broker1.snap4city.org",
+        "port": "8080"
     },
     {
         "id": "21b6f3b867d62589",
@@ -19,7 +175,7 @@
         "passthru": false,
         "label": "battery button",
         "tooltip": "",
-        "color": "battery button",
+        "color": "battery",
         "bgcolor": "",
         "className": "",
         "icon": "",
@@ -27,8 +183,8 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 110,
-        "y": 140,
+        "x": 140,
+        "y": 120,
         "wires": [
             [
                 "5a7c036f0f2d57c3"
@@ -42,7 +198,7 @@
         "name": "",
         "topic": "",
         "x": 140,
-        "y": 200,
+        "y": 180,
         "wires": [
             [
                 "dffbe8b7f29432c5"
@@ -61,7 +217,7 @@
         "finalize": "",
         "libs": [],
         "x": 140,
-        "y": 260,
+        "y": 240,
         "wires": [
             [
                 "25e54714cba82e6e",
@@ -85,14 +241,14 @@
         "apikey": "",
         "basicAuth": "",
         "x": 150,
-        "y": 320,
+        "y": 300,
         "wires": []
     },
     {
         "id": "b4426c47a984567f",
         "type": "inject",
         "z": "7cb62eb9eade0e42",
-        "name": "",
+        "name": "battery timestamp",
         "props": [
             {
                 "p": "payload"
@@ -109,8 +265,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 80,
+        "x": 150,
+        "y": 60,
         "wires": [
             [
                 "5a7c036f0f2d57c3"
@@ -130,34 +286,211 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 380,
-        "y": 260,
+        "x": 360,
+        "y": 240,
         "wires": []
     },
     {
-        "id": "750cd5ea0f445792",
-        "type": "ui_group",
-        "name": "Dashboard",
-        "tab": "df28481a1120caae",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
+        "id": "28f1b995702181fc",
+        "type": "ui_button",
+        "z": "5fe35985eeef4342",
+        "name": "",
+        "group": "750cd5ea0f445792",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "get wifi info button",
+        "tooltip": "",
+        "color": "get wifi info",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "bd98ba85d281cc09"
+            ]
+        ]
     },
     {
-        "id": "14b35d311b6574ec",
-        "type": "orion-service",
-        "name": "orionUNIFI",
-        "url": "broker1.snap4city.org",
-        "port": "8080"
+        "id": "491c1c6a6db07ba5",
+        "type": "function",
+        "z": "5fe35985eeef4342",
+        "name": "connectionStatePayload",
+        "func": "msg.payload={\n    \"name\": \"connection_state\",\n    \"value\": msg.payload.supplicant_state,\n    \"type\": \"string\"\n};\nmsg.payload=JSON.stringify(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "c62a357036f6eccc",
+                "caabd7a423c862c6"
+            ]
+        ]
     },
     {
-        "id": "df28481a1120caae",
-        "type": "ui_tab",
-        "name": "Home",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
+        "id": "c62a357036f6eccc",
+        "type": "fiware-orion-out",
+        "z": "5fe35985eeef4342",
+        "name": "",
+        "tls": "",
+        "service": "14b35d311b6574ec",
+        "entype": "Ambiental",
+        "enid": "",
+        "userk1": "",
+        "passk2": "",
+        "tenant": "",
+        "servicepath": "",
+        "apikey": "",
+        "basicAuth": "",
+        "x": 410,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ba6c7a3c7c41ad64",
+        "type": "inject",
+        "z": "5fe35985eeef4342",
+        "name": "wifi timestamp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "28f1b995702181fc"
+            ]
+        ]
+    },
+    {
+        "id": "caabd7a423c862c6",
+        "type": "debug",
+        "z": "5fe35985eeef4342",
+        "name": "connectionStateDebug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "bd98ba85d281cc09",
+        "type": "termux-wifi-connectioninfo",
+        "z": "5fe35985eeef4342",
+        "name": "",
+        "topic": "",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "491c1c6a6db07ba5",
+                "670934ebca2f10df",
+                "d9a238d4713e0b07"
+            ]
+        ]
+    },
+    {
+        "id": "670934ebca2f10df",
+        "type": "function",
+        "z": "5fe35985eeef4342",
+        "name": "ssidPayload",
+        "func": "msg.payload={\n    \"name\": \"ssid\",\n    \"value\": msg.payload.ssid,\n    \"type\": \"string\"\n};\nmsg.payload=JSON.stringify(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "eb2b5c42b1f40d37",
+                "c62a357036f6eccc"
+            ]
+        ]
+    },
+    {
+        "id": "eb2b5c42b1f40d37",
+        "type": "debug",
+        "z": "5fe35985eeef4342",
+        "name": "ssidPayloadDebug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e47f65154bfd642c",
+        "type": "debug",
+        "z": "5fe35985eeef4342",
+        "name": "ipPayloadDebug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d9a238d4713e0b07",
+        "type": "function",
+        "z": "5fe35985eeef4342",
+        "name": "ipPayload",
+        "func": "msg.payload={\n    \"name\": \"ip\",\n    \"value\": msg.payload.ip,\n    \"type\": \"string\"\n};\nmsg.payload=JSON.stringify(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "e47f65154bfd642c",
+                "c62a357036f6eccc"
+            ]
+        ]
     }
 ]
